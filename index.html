@@ -1,25 +1,211 @@
-title>
+<!DOCTYPE html>
+<html>
+<head>
+<title>OUMRAN Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body{ font-family: Arial, sans-serif; margin:0; background:#f4f4f4; text-align:center; }
-header{ background:black; color:white; padding:20px; font-size:28px; }
-.container{ padding:20px; }
 
-/* Product Cards */
-.product{
-    background:white; padding:20px; margin:20px; border-radius:10px;
-    display:inline-block; width:250px; box-shadow:0 0 10px rgba(0,0,0,0.1);
+<style>
+/* Combining your original style with the high-end video look */
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#000000; /* Dark background from video */
+    text-align:center;
+    color: white;
 }
+
+header{
+    background:black;
+    color:white;
+    padding:20px;
+    font-size:28px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #222;
+}
+
+.container{
+    padding:15px;
+}
+
+/* Product Grid (2 columns like the video) */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.product{
+    background:white; /* White cards from video */
+    padding:15px;
+    border-radius:8px;
+    color: black;
+    text-align: left;
+    position: relative;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.badge-sale {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: black;
+    color: white;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.product h3 {
+    font-size: 14px;
+    margin: 10px 0 5px 0;
+    text-transform: uppercase;
+}
+
+.price-row {
+    margin-bottom: 10px;
+}
+
+.new-price { font-weight: bold; font-size: 16px; }
+.old-price { color: #888; text-decoration: line-through; font-size: 12px; margin-left: 5px; }
 
 button{
-    background:black; color:white; border:none; padding:10px 20px;
-    cursor:pointer; border-radius:5px; font-weight:bold;
+    background:black;
+    color:white;
+    border:none;
+    padding:10px;
+    width: 100%;
+    cursor:pointer;
+    border-radius:5px;
+    font-weight: bold;
 }
 
-/* Modal (The "Tape" Overlay) */
+/* The Modal (Order Tape) */
 .modal {
     display: none; 
-    position: fixed; z-index: 1; left: 0; top: 0;
-    width: 100%; height: 100%; 
+    position: fixed; z-index: 1000; left: 0; top: 0;
+    width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+}
 
+.modal-content {
+    background-color: white; color: black; margin: 15% auto; padding: 25px;
+    border-radius: 12px; width: 80%; max-width: 400px; text-align: left;
+}
 
+.close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+
+select, .confirm-btn { width: 100%; padding: 12px; margin-top: 15px; border-radius: 5px; }
+
+.confirm-btn { background: black; color: white; border: none; font-weight: bold; }
+
+.shipping-info { 
+    color: #d9534f; 
+    font-weight: bold; 
+    margin-top: 15px; 
+    font-size: 14px; 
+    text-align: center;
+    border: 1px dashed #d9534f;
+    padding: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+OUMRAN
+</header>
+
+<div class="container">
+
+<h2>This Season's Best Sellers</h2>
+<p style="color: #888;">Premium Habesha Fashion</p>
+
+<div class="product-grid">
+
+    <div class="product">
+        <div class="badge-sale">Sale</div>
+        <div style="background:#eee; height:150px; display:flex; align-items:center; justify-content:center; color:#999;">IMAGE</div>
+        <h3>Street Hoodie</h3>
+        <div class="price-row">
+            <span class="new-price">$30</span>
+            <span class="old-price">$45</span>
+        </div>
+        <button onclick="openOrder('Street Hoodie', '$30', 'Hand-stitched premium cotton.')">Order Now</button>
+    </div>
+
+    <div class="product">
+        <div class="badge-sale">Sale</div>
+        <div style="background:#eee; height:150px; display:flex; align-items:center; justify-content:center; color:#999;">IMAGE</div>
+        <h3>Classic Sneakers</h3>
+        <div class="price-row">
+            <span class="new-price">$50</span>
+            <span class="old-price">$75</span>
+        </div>
+        <button onclick="openOrder('Classic Sneakers', '$50', 'Genuine leather footwear.')">Order Now</button>
+    </div>
+
+</div>
+
+<div style="margin-top: 40px; color: #888;">
+    <h3>Contact Us</h3>
+    <p>Phone: YOUR PHONE NUMBER</p>
+    <p>Telegram: YOUR TELEGRAM</p>
+</div>
+
+</div>
+
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="m-title">Product</h2>
+    <p id="m-desc" style="color:#555; font-size: 14px;"></p>
+    
+    <label><strong>Select Size:</strong></label>
+    <select id="size">
+        <option>Small (S)</option>
+        <option>Medium (M)</option>
+        <option>Large (L)</option>
+        <option>XL</option>
+        <option>Shoe Size 42</option>
+        <option>Shoe Size 43</option>
+    </select>
+
+    <div class="shipping-info">🚚 Estimated Shipping: 14 to 20 Days</div>
+    
+    <button class="confirm-btn" onclick="finalStep()">Confirm & Message Telegram</button>
+  </div>
+</div>
+
+<script>
+var currentItem = "";
+
+function openOrder(name, price, desc) {
+    currentItem = name;
+    document.getElementById("m-title").innerText = name + " - " + price;
+    document.getElementById("m-desc").innerText = desc;
+    document.getElementById("orderModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("orderModal").style.display = "none";
+}
+
+function finalStep() {
+    var size = document.getElementById("size").value;
+    var telegramUser = "YOUR_TELEGRAM_USERNAME"; // Change this to your real username
+    window.location.href = "https://t.me/" + telegramUser + "?text=I want to order " + currentItem + " in size " + size;
+}
+
+window.onclick = function(event) {
+    if (event.target == document.getElementById("orderModal")) {
+        closeModal();
+    }
+}
+</script>
+
+</body>
+</html>
