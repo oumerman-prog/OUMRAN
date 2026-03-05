@@ -12,7 +12,7 @@
             overflow-x: hidden; position: relative; min-height: 100vh;
         }
 
-        /* 1. MAXIMUM VISIBILITY LOGO BACKGROUND */
+        /* 1.7 BRIGHTNESS LOGO BACKGROUND */
         #motion-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("IMG_8765.jpeg"); 
@@ -33,39 +33,25 @@
             font-weight: 900; text-align: center; border-bottom: 1px solid #222;
         }
 
-        /* 2. SIDEWAYS SCROLLING SETUP */
+        /* ALL CATEGORIES SIDEWAYS SCROLLING */
         .category-section { padding: 25px 0 0 15px; text-align: left; position: relative; z-index: 1; }
         .category-title { 
             font-size: 13px; text-transform: uppercase; font-weight: 900; 
             margin-bottom: 12px; letter-spacing: 1.5px; border-left: 4px solid #fff; padding-left: 10px;
         }
-
-        .scroll-wrapper { 
-            display: flex; overflow-x: auto; gap: 15px; padding: 5px 15px 30px 5px; scrollbar-width: none;
-        }
+        .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 5px 15px 30px 5px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
-        .product-card { 
-            flex: 0 0 175px; background: var(--card); border-radius: 20px; color: black; 
-            overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.7);
-        }
-
+        .product-card { flex: 0 0 175px; background: var(--card); border-radius: 20px; color: black; overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.7); }
         .img-area { height: 175px; background: #f9f9f9; overflow: hidden; }
         .img-area img { width: 100%; height: 100%; object-fit: cover; }
-
         .info-area { padding: 12px; }
         .info-area h3 { font-size: 11px; margin: 0; color: #444; font-weight: bold; }
         .price-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
         .new-p { font-weight: 900; font-size: 17px; color: #000; }
         .old-p { font-size: 12px; text-decoration: line-through; color: #bbb; }
 
-        .tg-float {
-            position: fixed; bottom: 20px; right: 20px;
-            background: var(--tg); color: white; width: 60px; height: 60px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 24px; text-decoration: none; z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,136,204,0.4);
-        }
+        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,136,204,0.4); }
 
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); }
         .modal-content { background: white; color: black; margin: 10% auto; padding: 30px; width: 80%; max-width: 380px; border-radius: 25px; }
@@ -85,13 +71,10 @@
     <span class="brand-name">OUMRAN STORE📲</span>
 </header>
 
-<div class="promo-bar">
-    PREMIUM QUALITY: NOT GLOBAL❌ ONLY IN ADDISABABA✅
-    <br><span style="color: #888; font-size: 10px; font-weight: 400;">14-20 DAYS DELIVERY</span>
-</div>
+<div class="promo-bar">PREMIUM QUALITY: NOT GLOBAL❌ ONLY IN ADDISABABA✅<br><span style="color: #888; font-size: 10px; font-weight: 400;">14-20 DAYS DELIVERY</span></div>
 
 <div class="category-section">
-    <div class="category-title">Hoodies & Sweaters</div>
+    <div class="category-title">Hoodies</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('OUMRAN Street Hoodie', 'clothe')"><div class="img-area"><img src="hoodie1.jpg"></div><div class="info-area"><h3>Street Hoodie</h3><div class="price-row"><span class="new-p">$35</span><span class="old-p">$55</span></div></div></div>
         <div class="product-card" onclick="openP('OUMRAN Oversize Hoodie', 'clothe')"><div class="img-area"><img src="hoodie2.jpg"></div><div class="info-area"><h3>Oversize Hoodie</h3><div class="price-row"><span class="new-p">$38</span><span class="old-p">$58</span></div></div></div>
@@ -102,7 +85,6 @@
     <div class="category-title">Jackets</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('Leather Jacket', 'clothe')"><div class="img-area"><img src="jacket1.jpg"></div><div class="info-area"><h3>Leather Jacket</h3><div class="price-row"><span class="new-p">$65</span><span class="old-p">$95</span></div></div></div>
-        <div class="product-card" onclick="openP('Windbreaker', 'clothe')"><div class="img-area"><img src="jacket2.jpg"></div><div class="info-area"><h3>Windbreaker</h3><div class="price-row"><span class="new-p">$45</span><span class="old-p">$65</span></div></div></div>
     </div>
 </div>
 
@@ -110,7 +92,6 @@
     <div class="category-title">Jeans & Pants</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('Baggy Denim', 'clothe')"><div class="img-area"><img src="jeans1.jpg"></div><div class="info-area"><h3>Baggy Denim</h3><div class="price-row"><span class="new-p">$40</span><span class="old-p">$60</span></div></div></div>
-        <div class="product-card" onclick="openP('Cargo Pants', 'clothe')"><div class="img-area"><img src="pants1.jpg"></div><div class="info-area"><h3>Cargo Pants</h3><div class="price-row"><span class="new-p">$35</span><span class="old-p">$50</span></div></div></div>
     </div>
 </div>
 
@@ -118,18 +99,15 @@
     <div class="category-title">Woman Bags</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('Designer Handbag', 'accessory')"><div class="img-area"><img src="bag1.jpg"></div><div class="info-area"><h3>Designer Handbag</h3><div class="price-row"><span class="new-p">$55</span><span class="old-p">$85</span></div></div></div>
-        <div class="product-card" onclick="openP('Luxury Tote', 'accessory')"><div class="img-area"><img src="bag2.jpg"></div><div class="info-area"><h3>Luxury Tote</h3><div class="price-row"><span class="new-p">$60</span><span class="old-p">$90</span></div></div></div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Accessories</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('Silver Chain', 'accessory')"><div class="img-area"><img src="chain1.jpg"></div><div class="info-area"><h3>Silver Chain</h3><div class="price-row"><span class="new-p">$20</span><span class="old-p">$35</span></div></div></div>
     </div>
 </div>
 
 <a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
+
+<form id="orderForm" action="https://formspree.io/f/YOUR_ID_HERE" method="POST" style="display:none;">
+    <input type="hidden" name="Product" id="form-product">
+    <input type="hidden" name="Size" id="form-size">
+</form>
 
 <div id="pModal" class="modal">
     <div class="modal-content">
@@ -137,21 +115,16 @@
         <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
         <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; font-weight:bold; border: 1px solid #ddd;"></select>
         
-        <button id="main-order-btn" class="btn" onclick="showPayment()">Place Order</button>
+        <button id="main-order-btn" class="btn" onclick="submitToFormspree()">Place Order</button>
         
         <div id="payment-details">
-            <p style="color: #28a745; font-weight: bold; margin: 0;">Order Request Sent! ✅</p>
+            <p style="color: #28a745; font-weight: bold; margin: 0;">Order Logged! ✅</p>
             <div class="contact-box">
-                <p style="margin: 0;"><strong>Usernames:</strong></p>
-                <p style="margin: 2px 0;">@OUMER_FETE</p>
-                <p style="margin: 2px 0;">@Afran_Ismael</p>
+                <p style="margin: 0;"><strong>Usernames:</strong> @OUMER_FETE, @Afran_Ismael</p>
                 <hr style="border: 0; border-top: 1px solid #ddd; margin: 8px 0;">
-                <p style="margin: 0;"><strong>Telebirr:</strong></p>
-                <p style="margin: 2px 0; font-weight: 900;">0939620004</p>
-                <p style="margin: 2px 0; font-weight: 900;">0940028820</p>
+                <p style="margin: 0;"><strong>Telebirr:</strong> 0939620004 / 0940028820</p>
             </div>
-            <button class="btn btn-tg" onclick="sendNotification()">Message Oumer</button>
-            <button class="btn btn-tg" onclick="window.location.href='https://t.me/Afran_Ismael'">Message Afran</button>
+            <button class="btn btn-tg" onclick="window.location.href='https://t.me/OUMER_FETE'">Message Telegram</button>
         </div>
         
         <button class="btn" style="background:#f5f5f5; color:black;" onclick="closeModal()">Go Back</button>
@@ -159,13 +132,11 @@
 </div>
 
 <script>
-const sz = { 
-    clothe: ["S", "M", "L", "XL"], 
-    shoes: ["40", "41", "42", "43", "44"],
-    accessory: ["One Size"]
-};
+const sz = { clothe: ["S", "M", "L", "XL"], shoes: ["40", "41", "42", "43", "44"], accessory: ["One Size"] };
+let currentP = "";
 
 function openP(n, t) {
+    currentP = n;
     document.getElementById("m-name").innerText = n;
     let b = document.getElementById("size-box");
     b.innerHTML = "";
@@ -175,19 +146,30 @@ function openP(n, t) {
     document.getElementById("main-order-btn").style.display = "block";
 }
 
+function submitToFormspree() {
+    document.getElementById("form-product").value = currentP;
+    document.getElementById("form-size").value = document.getElementById("size-box").value;
+    
+    // This sends the data to your Formspree link
+    const form = document.getElementById("orderForm");
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+    });
+
+    showPayment();
+}
+
 function showPayment() {
     document.getElementById("payment-details").style.display = "block";
     document.getElementById("main-order-btn").style.display = "none";
-}
-
-function sendNotification() {
-    // This connects to the freeform logic to alert you
-    window.location.href = "https://t.me/OUMER_FETE";
 }
 
 function closeModal() { document.getElementById("pModal").style.display = "none"; }
 </script>
 </body>
 </html>
+
 
 
