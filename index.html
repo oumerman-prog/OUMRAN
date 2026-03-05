@@ -245,7 +245,6 @@ function filterProducts() {
     let cards = document.getElementsByClassName('product-card');
     for (let i = 0; i < cards.length; i++) {
         let name = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
-        // Fixed filtering to hide entire block
         cards[i].parentElement.style.display = name.includes(input) ? "block" : "none";
     }
 }
