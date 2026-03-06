@@ -40,25 +40,39 @@
             background: #222; color: white; font-size: 14px; box-sizing: border-box; text-align: center;
         }
 
-        .category-section { padding: 35px 0 0 15px; text-align: left; position: relative; z-index: 1; }
+        .category-wrapper { padding: 25px 0; border-bottom: 1px solid #222; }
         .category-title { 
-            font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic;
-            font-weight: 700; color: var(--gold); margin-bottom: 20px; text-align: center;
+            font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic;
+            font-weight: 700; color: var(--gold); margin-bottom: 15px; padding-left: 20px;
         }
 
-        .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 5px 15px 30px 5px; scrollbar-width: none; }
+        .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 5px 20px 20px 20px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
         .product-card { 
-            flex: 0 0 180px; background: var(--card); border-radius: 15px; color: black; 
+            flex: 0 0 220px; 
+            background: var(--card); border-radius: 15px; color: black; 
             overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.7);
+            transition: transform 0.3s ease;
         }
 
-        .img-area { height: 220px; background: #f9f9f9; overflow: hidden; }
-        .img-area img { width: 100%; height: 100%; object-fit: cover; }
+        .img-area { 
+            height: 180px; 
+            background: #f4f4f4; overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+
+        .img-area img { 
+            width: 100%; height: 100%; 
+            object-fit: contain; 
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .img-area img {
+            transform: scale(1.15);
+        }
+
         .info-area { padding: 12px; }
-        .info-area h3 { font-size: 11px; margin: 0; color: #111; font-weight: bold; }
-        .new-p { font-weight: 900; font-size: 14px; color: #000; margin-top: 5px; }
+        .info-area h3 { font-size: 12px; margin: 0; color: #111; font-weight: bold; text-transform: uppercase; }
+        .new-p { font-weight: 900; font-size: 15px; color: #000; margin-top: 5px; }
 
         .contact-section { 
             background: rgba(255,255,255,0.05); margin: 20px; padding: 25px; 
@@ -84,16 +98,13 @@
     <span class="brand-name">OUMRAN STORE📲</span>
 </header>
 
-<div class="promo-bar">
-    VENDOR FROM CHINA🇨🇳✈️<br>
-    PREMIUM QUALITY: NOT GLOBAL❌ ONLY IN ADDIS ABABA✅
-</div>
+<div class="promo-bar">VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY ONLY</div>
 
 <div class="search-container">
     <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
 </div>
 
-<div class="category-section">
+<div class="category-wrapper">
     <div class="category-title">Sweaters & Polos 🧶</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('White Zip Polo', 'clothe')">
@@ -107,7 +118,7 @@
     </div>
 </div>
 
-<div class="category-section">
+<div class="category-wrapper">
     <div class="category-title">Luxury Jackets 🧥</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('Vintage Suede Jacket', 'clothe')">
@@ -117,7 +128,7 @@
     </div>
 </div>
 
-<div class="category-section">
+<div class="category-wrapper">
     <div class="category-title">Premium Footwear 👟</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('Luxury Suede Loafers', 'shoes')">
@@ -127,21 +138,11 @@
     </div>
 </div>
 
-<div class="category-section">
-    <div class="category-title">Customer Reviews ⭐</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" style="flex: 0 0 250px; padding: 20px; background: #111; color: white; border: 1px solid #333;">
-            <p style="font-size: 12px; font-style: italic;">"The quality is crazy! Arrived in 15 days. Best vendor in Addis."</p>
-            <div style="font-size: 12px; font-weight: bold; margin-top: 10px;">Nahom A. <span style="color: #0088cc;">✔ Verified</span></div>
-        </div>
-    </div>
-</div>
-
 <div class="contact-section">
-    <div class="category-title" style="margin-bottom: 10px;">Contact Us 📞</div>
-    <div style="font-size: 14px; color: #ccc;">
-        <strong>Phone:</strong> 0939620004 / 0940028820<br>
-        <strong>Telegram:</strong> @OUMER_FETE / @Afran_Ismael
+    <div class="category-title" style="padding-left:0; text-align:center;">Contact Us 📞</div>
+    <div style="font-size: 14px; color: #ccc; margin-bottom: 15px;">
+        0939620004 / 0940028820<br>
+        Telegram: @OUMER_FETE
     </div>
     <button class="btn" style="background: var(--tg);" onclick="window.location.href='https://t.me/OUMER_FETE'">Message on Telegram</button>
 </div>
@@ -180,9 +181,9 @@ function filterProducts() {
     let input = document.getElementById('search-input').value.toLowerCase();
     let cards = document.getElementsByClassName('product-card');
     for (let i = 0; i < cards.length; i++) {
-        let nameElement = cards[i].getElementsByTagName('h3')[0];
-        if (nameElement) {
-            let name = nameElement.innerText.toLowerCase();
+        let nameElem = cards[i].getElementsByTagName('h3')[0];
+        if (nameElem) {
+            let name = nameElem.innerText.toLowerCase();
             cards[i].style.display = name.includes(input) ? "block" : "none";
         }
     }
@@ -225,4 +226,3 @@ function closeCart() { document.getElementById("cartModal").style.display = "non
 </script>
 </body>
 </html>
-
