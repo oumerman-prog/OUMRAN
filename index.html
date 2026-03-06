@@ -9,7 +9,7 @@
     <style>
         :root { --bg: #000; --card: #fff; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; }
         body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
+            font-family: 'Inter', sans-serif; 
             margin:0; background: var(--bg); color: white; 
             overflow-x: hidden; position: relative; min-height: 100vh;
         }
@@ -64,7 +64,6 @@
             background: rgba(255,255,255,0.05); margin: 20px; padding: 25px; 
             border-radius: 20px; border: 1px solid #333; text-align: center;
         }
-        .contact-info { font-size: 14px; color: #ccc; margin: 10px 0; line-height: 1.6; }
 
         .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
@@ -95,29 +94,36 @@
 </div>
 
 <div class="category-section">
-    <div class="category-title">Vendor Exclusives 🇨🇳</div>
+    <div class="category-title">Sweaters & Polos 🧶</div>
     <div class="scroll-wrapper">
-        
         <div class="product-card" onclick="openP('Elegant Zip Polo', 'clothe')">
             <div class="img-area"><img src="zip_polo.jpg"></div>
             <div class="info-area"><h3>Elegant Zip Polo</h3><div class="new-p">2,250 ETB</div></div>
         </div>
-
         <div class="product-card" onclick="openP('Grey Polo Knit Sweater', 'clothe')">
             <div class="img-area"><img src="mexican_sweater.jpg"></div>
             <div class="info-area"><h3>Grey Polo Knit</h3><div class="new-p">2,550 ETB</div></div>
         </div>
+    </div>
+</div>
 
+<div class="category-section">
+    <div class="category-title">Luxury Jackets 🧥</div>
+    <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('Vintage Suede Jacket', 'clothe')">
             <div class="img-area"><img src="suede_jacket.jpg"></div>
             <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="new-p">3,000 ETB</div></div>
         </div>
+    </div>
+</div>
 
+<div class="category-section">
+    <div class="category-title">Premium Footwear 👟</div>
+    <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('Luxury Suede Loafers', 'shoes')">
             <div class="img-area"><img src="lp_loafers.jpg"></div>
             <div class="info-area"><h3>Luxury Suede Loafers</h3><div class="new-p">7,850 ETB</div></div>
         </div>
-
     </div>
 </div>
 
@@ -125,24 +131,17 @@
     <div class="category-title">Customer Reviews ⭐</div>
     <div class="scroll-wrapper">
         <div class="product-card" style="flex: 0 0 250px; padding: 20px; background: #111; color: white; border: 1px solid #333;">
-            <div style="color: #FFD700; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
             <p style="font-size: 12px; font-style: italic;">"The quality is crazy! Arrived in 15 days. Best vendor in Addis."</p>
             <div style="font-size: 12px; font-weight: bold; margin-top: 10px;">Nahom A. <span style="color: #0088cc;">✔ Verified</span></div>
-        </div>
-        <div class="product-card" style="flex: 0 0 250px; padding: 20px; background: #111; color: white; border: 1px solid #333;">
-            <div style="color: #FFD700; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
-            <p style="font-size: 12px; font-style: italic;">"Honestly best service. Everything looks exactly like the photos."</p>
-            <div style="font-size: 12px; font-weight: bold; margin-top: 10px;">Meskarem S. <span style="color: #0088cc;">✔ Verified</span></div>
         </div>
     </div>
 </div>
 
 <div class="contact-section">
     <div class="category-title" style="margin-bottom: 10px;">Contact Us 📞</div>
-    <div class="contact-info">
+    <div style="font-size: 14px; color: #ccc;">
         <strong>Phone:</strong> 0939620004 / 0940028820<br>
-        <strong>Telegram:</strong> @OUMER_FETE / @Afran_Ismael<br>
-        <strong>Location:</strong> Addis Ababa, Ethiopia 🇪🇹
+        <strong>Telegram:</strong> @OUMER_FETE / @Afran_Ismael
     </div>
     <button class="btn" style="background: var(--tg);" onclick="window.location.href='https://t.me/OUMER_FETE'">Message on Telegram</button>
 </div>
@@ -157,8 +156,7 @@
 <div id="pModal" class="modal">
     <div class="modal-content">
         <h2 id="m-name" style="font-family: 'Playfair Display', serif;">Product</h2>
-        <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
-        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; border: 1px solid #ddd;"></select>
+        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-bottom:10px; border: 1px solid #ddd;"></select>
         <button class="btn" onclick="addToCart()">Add to Bag</button>
         <button class="btn" style="background:#eee; color:black; margin-top:10px;" onclick="closeModal()">Back</button>
     </div>
@@ -182,8 +180,8 @@ function filterProducts() {
     let input = document.getElementById('search-input').value.toLowerCase();
     let cards = document.getElementsByClassName('product-card');
     for (let i = 0; i < cards.length; i++) {
-        let name = cards[i].getElementsByTagName('h3')[0] ? cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase() : "";
-        if (name) cards[i].style.display = name.includes(input) ? "block" : "none";
+        let name = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+        cards[i].style.display = name.includes(input) ? "block" : "none";
     }
 }
 
@@ -199,13 +197,9 @@ function openP(n, t) {
 function addToCart() {
     let size = document.getElementById("size-box").value;
     cart.push({ name: currentP, size: size });
-    updateCartUI();
-    closeModal();
-}
-
-function updateCartUI() {
     document.getElementById("cart-count").innerText = cart.length;
-    document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
+    document.getElementById("cart-btn").style.display = "flex";
+    closeModal();
 }
 
 function showCart() {
@@ -219,7 +213,7 @@ function submitOrder() {
     document.getElementById("form-summary").value = summary;
     const form = document.getElementById("orderForm");
     fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
-    alert("Order Request Sent! Please message us on Telegram to complete payment.");
+    alert("Order Request Sent! Opening Telegram...");
     window.location.href = "https://t.me/OUMER_FETE";
 }
 
