@@ -96,12 +96,12 @@
 <div class="category-section">
     <div class="category-title">Sweaters & Polos 🧶</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('Elegant Zip Polo', 'clothe')">
+        <div class="product-card" onclick="openP('White Zip Polo', 'clothe')">
             <div class="img-area"><img src="zip_polo.jpg"></div>
-            <div class="info-area"><h3>Elegant Zip Polo</h3><div class="new-p">2,250 ETB</div></div>
+            <div class="info-area"><h3>White Zip Polo</h3><div class="new-p">2,250 ETB</div></div>
         </div>
         <div class="product-card" onclick="openP('Grey Polo Knit Sweater', 'clothe')">
-            <div class="img-area"><img src="mexican_sweater.jpg"></div>
+            <div class="img-area"><img src="grey_polo_sweater.jpg.jpg"></div>
             <div class="info-area"><h3>Grey Polo Knit</h3><div class="new-p">2,550 ETB</div></div>
         </div>
     </div>
@@ -180,8 +180,11 @@ function filterProducts() {
     let input = document.getElementById('search-input').value.toLowerCase();
     let cards = document.getElementsByClassName('product-card');
     for (let i = 0; i < cards.length; i++) {
-        let name = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
-        cards[i].style.display = name.includes(input) ? "block" : "none";
+        let nameElement = cards[i].getElementsByTagName('h3')[0];
+        if (nameElement) {
+            let name = nameElement.innerText.toLowerCase();
+            cards[i].style.display = name.includes(input) ? "block" : "none";
+        }
     }
 }
 
@@ -222,3 +225,4 @@ function closeCart() { document.getElementById("cartModal").style.display = "non
 </script>
 </body>
 </html>
+
