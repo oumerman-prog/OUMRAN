@@ -201,6 +201,37 @@
     </div>
 </div>
 
+<div class="category-section" style="padding-bottom: 40px;">
+    <div class="category-title">Customer Reviews ⭐</div>
+    <div class="scroll-wrapper">
+        
+        <div class="product-card" style="flex: 0 0 250px; padding: 20px; background: #111; color: white; border: 1px solid #333;">
+            <div style="color: #FFD700; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+            <p style="font-size: 12px; font-style: italic; line-height: 1.5;">"The quality is crazy! I ordered the hoodie and it arrived in exactly 15 days. Best vendor in Addis."</p>
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                <div style="width: 30px; height: 30px; background: #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">NA</div>
+                <div>
+                    <div style="font-size: 12px; font-weight: bold;">Nahom A. <span style="color: #0088cc; font-size: 10px;">✔ Verified</span></div>
+                    <div style="font-size: 10px; color: #888;">Bole, Addis Ababa</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card" style="flex: 0 0 250px; padding: 20px; background: #111; color: white; border: 1px solid #333;">
+            <div style="color: #FFD700; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+            <p style="font-size: 12px; font-style: italic; line-height: 1.5;">"I was scared to send Telebirr first, but Oumer is honest. My Retro Kicks look exactly like the photos."</p>
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                <div style="width: 30px; height: 30px; background: #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">MS</div>
+                <div>
+                    <div style="font-size: 12px; font-weight: bold;">Meskarem S. <span style="color: #0088cc; font-size: 10px;">✔ Verified</span></div>
+                    <div style="font-size: 10px; color: #888;">CMC, Addis Ababa</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div class="cart-float" onclick="showCart()" id="cart-btn">🛒<span class="cart-count" id="cart-count">0</span></div>
 <a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
 
@@ -244,8 +275,10 @@ function filterProducts() {
     let input = document.getElementById('search-input').value.toLowerCase();
     let cards = document.getElementsByClassName('product-card');
     for (let i = 0; i < cards.length; i++) {
-        let name = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
-        cards[i].parentElement.style.display = name.includes(input) ? "block" : "none";
+        let name = cards[i].getElementsByTagName('h3')[0] ? cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase() : "";
+        if (name) {
+            cards[i].parentElement.style.display = name.includes(input) ? "block" : "none";
+        }
     }
 }
 
@@ -298,3 +331,4 @@ function closeCart() { document.getElementById("cartModal").style.display = "non
 </script>
 </body>
 </html>
+
