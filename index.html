@@ -86,7 +86,6 @@
         .modal-content { background: white; color: black; margin: 10% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; }
         .btn { width: 100%; padding: 18px; background: black; color: white; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         
-        /* New styling for payment info in cart */
         .payment-info {
             background: #f1f1f1;
             padding: 12px;
@@ -118,9 +117,9 @@
 <div class="category-section">
     <div class="category-title">Graphic T-Shirts 👕</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('White Zip Polo', 'clothe')">
+        <div class="product-card" onclick="openP('', 'clothe')">
             <div class="img-area"><img src="white_zip_polo.jpg"></div>
-            <div class="info-area"><h3>White Zip Polo</h3><div class="new-p">Price TBD</div></div>
+            <div class="info-area"><h3></h3><div class="new-p">Price TBD</div></div>
         </div>
     </div>
 </div>
@@ -128,17 +127,17 @@
 <div class="category-section">
     <div class="category-title">Hoodies & Sweaters 🧶</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('Grey Knit Polo', 'clothe')">
+        <div class="product-card" onclick="openP('', 'clothe')">
             <div class="img-area"><img src="grey_knit_polo.jpg"></div>
-            <div class="info-area"><h3>Grey Knit Polo</h3><div class="new-p">Price TBD</div></div>
+            <div class="info-area"><h3></h3><div class="new-p">Price TBD</div></div>
         </div>
-        <div class="product-card" onclick="openP('Black Velvet Sweater', 'clothe')">
+        <div class="product-card" onclick="openP('', 'clothe')">
             <div class="img-area"><img src="black_velvet_sweater.jpg"></div>
-            <div class="info-area"><h3>Black Velvet Sweater</h3><div class="new-p">Price TBD</div></div>
+            <div class="info-area"><h3></h3><div class="new-p">Price TBD</div></div>
         </div>
-        <div class="product-card" onclick="openP('Lacoste Grey Sweater', 'clothe')">
+        <div class="product-card" onclick="openP('', 'clothe')">
             <div class="img-area"><img src="lacoste_grey_sweater.jpg"></div>
-            <div class="info-area"><h3>Lacoste Grey Sweater</h3><div class="new-p">Price TBD</div></div>
+            <div class="info-area"><h3></h3><div class="new-p">Price TBD</div></div>
         </div>
     </div>
 </div>
@@ -146,13 +145,13 @@
 <div class="category-section">
     <div class="category-title">Jackets & Coats 🧥</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('Suede Vintage Jacket', 'clothe')">
+        <div class="product-card" onclick="openP('', 'clothe')">
             <div class="img-area"><img src="suede_vintage_jacket.jpg"></div>
-            <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="new-p">Price TBD</div></div>
+            <div class="info-area"><h3></h3><div class="new-p">Price TBD</div></div>
         </div>
-        <div class="product-card" onclick="openP('Fleece Colorblock Jacket', 'clothe')">
+        <div class="product-card" onclick="openP('', 'clothe')">
             <div class="img-area"><img src="fleece_colorblock_jacket.jpg"></div>
-            <div class="info-area"><h3>Fleece Colorblock Jacket</h3><div class="new-p">Price TBD</div></div>
+            <div class="info-area"><h3></h3><div class="new-p">Price TBD</div></div>
         </div>
     </div>
 </div>
@@ -160,9 +159,9 @@
 <div class="category-section">
     <div class="category-title">Exclusive Shoes 👟</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('Grey Suede Loafers', 'shoes')">
+        <div class="product-card" onclick="openP('', 'shoes')">
             <div class="img-area"><img src="grey_suede_loafers.jpg"></div>
-            <div class="info-area"><h3>Grey Suede Loafers</h3><div class="new-p">Price TBD</div></div>
+            <div class="info-area"><h3></h3><div class="new-p">Price TBD</div></div>
         </div>
     </div>
 </div>
@@ -170,9 +169,9 @@
 <div class="category-section">
     <div class="category-title">Jeans & Pants 👖</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('White Polo Trackpants', 'clothe')">
+        <div class="product-card" onclick="openP('', 'clothe')">
             <div class="img-area"><img src="white_polo_trackpants.jpg"></div>
-            <div class="info-area"><h3>White Polo Trackpants</h3><div class="new-p">Price TBD</div></div>
+            <div class="info-area"><h3></h3><div class="new-p">Price TBD</div></div>
         </div>
     </div>
 </div>
@@ -225,8 +224,8 @@ function filterProducts() {
 }
 
 function openP(n, t) {
-    currentP = n;
-    document.getElementById("m-name").innerText = n;
+    currentP = n || "Product";
+    document.getElementById("m-name").innerText = currentP;
     let b = document.getElementById("size-box");
     b.innerHTML = "";
     (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
@@ -270,5 +269,3 @@ function closeCart() { document.getElementById("cartModal").style.display = "non
 </script>
 </body>
 </html>
-
-
