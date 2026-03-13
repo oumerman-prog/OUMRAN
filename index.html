@@ -67,18 +67,15 @@
             transition: all 0.3s ease;
         }
         .product-card:hover {
-transform: translateY(-6px);
-box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-}
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
 
         .img-area { height: 220px; background: #f9f9f9; overflow: hidden; }
         .img-area img { 
             width: 100%; height: 100%; object-fit: cover; 
             transition: transform 0.5s ease;
         }
-        .product-card:hover .img-area img {
-transform: scale(1.08);
-}
         .product-card:hover .img-area img { transform: scale(1.1); }
 
         .info-area { padding: 12px; }
@@ -94,27 +91,17 @@ transform: scale(1.08);
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         
         .payment-info {
-            background: #222;
-            padding: 12px;
-            border-radius: 12px;
-            margin-top: 15px;
-            font-size: 13px;
-            border-left: 4px solid #0088cc;
-            color: #ccc;
+            background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px;
+            border-left: 4px solid #0088cc; color: #ccc;
         }
 
         .order-input {
             width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; 
             border: 1px solid #444; background: #000; color: white; box-sizing: border-box;
         }
-   body {
-animation: fadeIn 0.8s ease-in;
-}
-
-@keyframes fadeIn {
-from {opacity:0;}
-to {opacity:1;}
-}
+        
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+        body { animation: fadeIn 0.8s ease-in; }
     </style>
 </head>
 <body>
@@ -192,38 +179,12 @@ to {opacity:1;}
 </div>
 
 <div class="category-section">
-    <div class="category-title">Jackets</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)">
-            <div class="img-area"><img src="Suede vintage jacket.jpg"></div>
-            <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">Price 2,800ETB</div></div>
-        </div>
-        <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)">
-            <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg"></div>
-            <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">Price 3,250ETB</div></div>
-        </div>
-        <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)">
-            <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg"></div>
-            <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">Price 3,000ETB</div></div> 
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
     <div class="category-title">Exclusive Shoes 👟</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('U.S. POLO ASSN', 'shoes', 5000)">
             <div class="img-area"><img src="U.S. POLO ASSN.jpg"></div>
             <div class="info-area"><h3>U.S. POLO ASSN</h3><div class="new-p">Price 5,000ETB</div></div>
         </div> 
-        <div class="product-card" onclick="openP('New European Style High-End canvas casual shoes', 'shoes', 6000)">
-            <div class="img-area"><img src="New European Style High-End canvas casual shoes.jpg"></div>
-            <div class="info-area"><h3>New European Style High-End canvas casual shoes</h3><div class="new-p">Price 6,000ETB</div></div>
-       </div> 
-        <div class="product-card" onclick="openP('Vintage Thick-Sole Puma Sneakers', 'shoes', 5500)">
-            <div class="img-area"><img src="Vintage Thick-Sole Puma Sneakers.jpg"></div>
-            <div class="info-area"><h3>Vintage Thick-Sole Puma Sneakers</h3><div class="new-p">Price 5,500ETB</div></div>
-       </div> 
         <div class="product-card" onclick="openP('Italian Suede Flat Casual Loafers', 'shoes', 6500)">
             <div class="img-area"><img src="Italian Suede Flat Casual Loafers.jpg"></div>
             <div class="info-area"><h3>Italian Suede Flat Casual Loafers</h3><div class="new-p">Price 6,500ETB</div></div>
@@ -231,62 +192,12 @@ to {opacity:1;}
     </div>
 </div>
 
-<div class="category-section">
-    <div class="category-title">Jeans & Pants 👖</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('Broken Planet Suede Loose Straight Casual Men’s Pants', 'clothe', 2850)">
-            <div class="img-area"><img src="Broken Planet Suede Loose Straight Casual Men’s Pants.jpg"></div>
-            <div class="info-area"><h3>Broken Planet Suede Loose Straight Casual Men’s Pants</h3><div class="new-p">Price 2,850ETB</div></div>
-        </div>
-        <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)">
-            <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg"></div>
-            <div class="info-area"><h3>Broken Planet Fleece Sweatpants</h3><div class="new-p">Price 2,500ETB</div></div>
-        </div>
-        <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)">
-            <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg"></div>
-            <div class="info-area"><h3>Loose Hip-Hop polo Streetwear Sweatpants</h3><div class="new-p">Price 2,850ETB</div></div>
-       </div>
-        <div class="product-card" onclick="openP('Denim tears Sweatpants', 'clothe', 2850)">
-            <div class="img-area"><img src="Denim tears Sweatpants.jpg"></div>
-            <div class="info-area"><h3>Denim tears Sweatpants</h3><div class="new-p">Price 2,850ETB</div></div>
-        </div>
-        <div class="product-card" onclick="openP('Wide-Leg High Street Casual Jeans', 'clothe', 2850)">
-            <div class="img-area"><img src="Wide-Leg High Street Casual Jeans.jpg"></div>
-            <div class="info-area"><h3>Wide-Leg High Street Casual Jeans</h3><div class="new-p">Price 2,850ETB</div></div>
-        </div>
-        </div>
-    </div>
-</div>
-    
-<div class="category-section">
-    <div class="category-title">Full oufits</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('Alo-Style Tracksuit', 'clothe', 6000)">
-            <div class="img-area"><img src="Alo-Style Tracksuit.jpg"></div>
-            <div class="info-area"><h3>Alo-Style Tracksuit</h3><div class="new-p">Price 6,000ETB</div></div>
-      </div>
-        <div class="product-card" onclick="openP('Essentials-Style Tracksuit', 'clothe', 6000)">
-            <div class="img-area"><img src="Essentials-Style Tracksuit.jpg"></div>
-            <div class="info-area"><h3>Essentials-Style Tracksuit</h3><div class="new-p">Price 6,000ETB</div></div>
-      </div>
-        <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)">
-            <div class="img-area"><img src="Denim tears-Style tracksuit .jpg"></div>
-            <div class="info-area"><h3>Denim tears-Style tracksuit</h3><div class="new-p">Price 7,000ETB</div></div>
-       </div>      
-        <div class="product-card" onclick="openP('Polo-Style Tracksuit', 'clothe', 6000)">
-            <div class="img-area"><img src="Polo-Style Tracksuit.jpg"></div>
-            <div class="info-area"><h3>Polo-Style Tracksuit</h3><div class="new-p">Price 6,000ETB</div></div>
-        </div>
-    </div>
-</div>
-    
-<div class="cart-float" onclick="showCart()" id="cart-btn">🛒<span class="cart-count" id="cart-count">0</span></div>
+<div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
 <a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
 
 <div id="pModal" class="modal">
     <div class="modal-content">
         <img id="modal-img" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; max-height: 400px;">
-
         <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif;">Product</h2>
         <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
         <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; border: 1px solid #ddd; background: #fff; color: #000;"></select>
@@ -300,7 +211,7 @@ to {opacity:1;}
         <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
         <div id="cart-items-list" style="max-height: 150px; overflow-y: auto; margin-bottom: 10px;"></div>
         
-        <div class="total-price-display" style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:10px; margin:15px 0; text-align:right;">
+        <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:10px; margin:15px 0; text-align:right;">
             Total: <span id="cart-total">0</span> ETB
         </div>
 
@@ -312,15 +223,12 @@ to {opacity:1;}
         </form>
 
         <div class="payment-info">
-    <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
-    📞 0939620004<br>
-    📞 0940028820<br><br>
+            <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
+            📞 0939620004 | 0940028820<br><br>
+            <p>Final price confirmed on Telegram.</p>
+        </div>
 
-    <strong style="color:#FFD700;">Important:</strong><br>
-    <p>Prices may change slightly depending on supplier stock or shipping. We’ll confirm the final price on Telegram before payment.</p>
-</div>
-
-        <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm All Items</button>
+        <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm Order</button>
         <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
     </div>
 </div>
@@ -329,7 +237,7 @@ to {opacity:1;}
 let cart = [];
 const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
 let currentP = "";
-let currentPrice = 0; // Fixed: Tracks the price of the current item
+let currentPrice = 0;
 
 function filterProducts() {
     let input = document.getElementById('search-input').value.toLowerCase();
@@ -340,13 +248,14 @@ function filterProducts() {
     }
 }
 
-// Fixed openP to accept and display product images and prices
 function openP(n, t, price) {
     currentP = n || "Product";
-    currentPrice = price || 0; // Store the price
+    currentPrice = price || 0;
     document.getElementById("m-name").innerText = currentP;
 
-    // Fix: Grabs the image source from the card that was clicked
+    // SCROLL LOCK: Freeze background
+    document.body.style.overflow = "hidden";
+
     let clickedCardImg = event.currentTarget.querySelector('img').src;
     document.getElementById("modal-img").src = clickedCardImg;
 
@@ -358,13 +267,11 @@ function openP(n, t, price) {
 
 function addToCart() {
     let size = document.getElementById("size-box").value;
-    // Fixed: Now saves the price along with name and size
     cart.push({ name: currentP, size: size, price: currentPrice });
     updateCartUI();
     closeModal();
 }
 
-// Added Remove function
 function removeFromCart(index) {
     cart.splice(index, 1);
     updateCartUI();
@@ -376,12 +283,11 @@ function updateCartUI() {
     document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
 }
 
-// Added Remove button and Price Calculator to showCart
 function showCart() {
     const list = document.getElementById("cart-items-list");
     let total = 0;
     list.innerHTML = cart.map((item, index) => {
-        total += item.price; // Fixed: Calculates the total
+        total += item.price;
         return `
         <div style="padding:10px 0; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center;">
             <span>${item.name} (${item.size})</span>
@@ -389,47 +295,41 @@ function showCart() {
         </div>`;
     }).join("");
     
-    // Fixed: Displays the calculated total
     document.getElementById("cart-total").innerText = total.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
+    
+    // SCROLL LOCK: Freeze background
+    document.body.style.overflow = "hidden";
 }
 
 function submitOrder() {
     if(cart.length === 0) return;
-
-    // Get Customer Data
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const address = document.getElementById('custAddress').value;
-
-    if(!name || !phone || !address) {
-        alert("Please fill in your name, phone, and delivery address!");
-        return;
-    }
+    if(!name || !phone || !address) { alert("Fill all details!"); return; }
     
     let summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
-    // Fixed: Included the total price in the form summary for email
     document.getElementById("form-summary").value = summary + " | Total: " + document.getElementById("cart-total").innerText + " ETB";
     
-    const form = document.getElementById("orderForm");
-    const formData = new FormData(form);
-
     fetch("https://formspree.io/f/xkoqwjke", {
         method: 'POST',
-        body: formData,
+        body: new FormData(document.getElementById("orderForm")),
         headers: { 'Accept': 'application/json' }
-    }).then(response => {
-        if (response.ok) {
-            alert("Order received successfully!\n\nName: " + name + "\nItems: " + summary + "\n\nRedirecting to Telegram...");
-            window.location.href = "https://t.me/OUMER_FETE";
-        } else {
-            alert("Oops! There was a problem sending your order.");
-        }
-    });
+    }).then(() => { window.location.href = "https://t.me/OUMER_FETE"; });
 }
 
-function closeModal() { document.getElementById("pModal").style.display = "none"; }
-function closeCart() { document.getElementById("cartModal").style.display = "none"; }
+function closeModal() { 
+    document.getElementById("pModal").style.display = "none"; 
+    // UNLOCK SCROLL
+    document.body.style.overflow = "auto";
+}
+
+function closeCart() { 
+    document.getElementById("cartModal").style.display = "none"; 
+    // UNLOCK SCROLL
+    document.body.style.overflow = "auto";
+}
 </script>
 </body>
 </html>
