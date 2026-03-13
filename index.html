@@ -21,14 +21,6 @@
             background-size: contain; opacity: 0.95; z-index: -1;
             filter: brightness(1.7); 
         }
-
-        /* Fixed the background "touching" feel */
-        .main-content {
-            position: relative;
-            z-index: 1;
-            background: rgba(0, 0, 0, 0.7);
-            min-height: 100vh;
-        }
         
         header { 
             background: rgba(0,0,0,0.96); padding: 18px; border-bottom: 1px solid #333; 
@@ -48,26 +40,45 @@
             background: #222; color: white; font-size: 14px; box-sizing: border-box; text-align: center;
         }
 
-        .category-section { padding: 35px 0 0 15px; text-align: left; }
+        .category-section { padding: 35px 0 0 15px; text-align: left; position: relative; z-index: 1; }
         
         .category-title { 
             font-family: 'Playfair Display', serif;
-            font-size: 19px; font-style: italic; font-weight: 700;
-            color: var(--gold); margin-bottom: 20px; letter-spacing: 1px; text-align: center;
+            font-size: 19px; 
+            font-style: italic;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-align: center;
         }
 
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 5px 15px 30px 5px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
         .product-card { 
-            flex: 0 0 180px; background: var(--card); border-radius: 15px; 
-            color: black; overflow: hidden; position: relative; 
-            box-shadow: 0 12px 25px rgba(0,0,0,0.7); transition: all 0.3s ease;
+            flex: 0 0 180px; 
+            background: var(--card); 
+            border-radius: 15px; 
+            color: black; 
+            overflow: hidden; 
+            position: relative; 
+            box-shadow: 0 12px 25px rgba(0,0,0,0.7);
+            transition: all 0.3s ease;
         }
-        .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+        .product-card:hover {
+transform: translateY(-6px);
+box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+}
 
         .img-area { height: 220px; background: #f9f9f9; overflow: hidden; }
-        .img-area img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .img-area img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .img-area img {
+transform: scale(1.08);
+}
         .product-card:hover .img-area img { transform: scale(1.1); }
 
         .info-area { padding: 12px; }
@@ -79,152 +90,238 @@
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
 
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); }
-        .modal-content { background: #1a1a1a; color: white; margin: 10% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; }
+        .modal-content { background: #1a1a1a; color: white; margin: 5% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; overflow-y: auto; max-height: 90vh; }
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         
-        .total-display { font-size: 18px; font-weight: 900; color: var(--gold); margin: 15px 0; border-top: 1px solid #333; padding-top: 10px; text-align: right; }
-        .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
-        .order-input { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; }
-        
-        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-        body { animation: fadeIn 0.8s ease-in; }
+        .payment-info {
+            background: #222;
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-size: 13px;
+            border-left: 4px solid #0088cc;
+            color: #ccc;
+        }
+
+        .order-input {
+            width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; 
+            border: 1px solid #444; background: #000; color: white; box-sizing: border-box;
+        }
+   body {
+animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+from {opacity:0;}
+to {opacity:1;}
+}
     </style>
 </head>
 <body>
 
 <div id="motion-bg"></div>
 
-<div class="main-content">
-    <header>
-        <img src="IMG_8765.jpeg" alt="Logo" class="header-logo">
-        <span class="brand-name">OUMRAN STORE📲</span>
-    </header>
+<header>
+    <img src="IMG_8765.jpeg" alt="Logo" class="header-logo">
+    <span class="brand-name">OUMRAN STORE📲</span>
+</header>
 
-    <div class="promo-bar">
-        VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
-        NOT GLOBAL❌ ONLY IN ADDIS ABABA✅
-    </div>
-
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
-    </div>
-
-    <div class="category-section">
-        <div class="category-title">Graphic T-Shirts 👕</div>
-        <div class="scroll-wrapper">
-            <div class="product-card" onclick="openP('black polo t-shirt', 'clothe', 2200)">
-                <div class="img-area"><img src="black_zip_polo.jpg"></div>
-                <div class="info-area"><h3>black polo t-shirt</h3><div class="new-p">price 2,200ETB</div></div>
-            </div>
-            <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)">
-                <div class="img-area"><img src="Half zipped black t-shirt.jpg"></div>
-                <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">price 1,800ETB</div></div> 
-            </div>
-            <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)">
-                <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg"></div>
-                <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">price 1,600ETB</div></div> 
-            </div>
-            <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)">
-                <div class="img-area"><img src="Strip knit t-shirt.jpg"></div>
-                <div class="info-area"><h3>Strip knit t-shirt</h3><div class="new-p">price 2,850ETB</div></div> 
-            </div>
-        </div>
-    </div>
-
-    <div class="category-section">
-        <div class="category-title">Hoodies & Sweaters 🧶</div>
-        <div class="scroll-wrapper">
-            <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)">
-                <div class="img-area"><img src="Polo knit sweater.jpg"></div>
-                <div class="info-area"><h3>Polo knit sweater</h3><div class="new-p">Price 2,500ETB</div></div>
-            </div>
-            <div class="product-card" onclick="openP('Black Textured Sweatshirt', 'clothe', 2800)">
-                <div class="img-area"><img src="Black Textured Sweatshirt.jpg"></div>
-                <div class="info-area"><h3>Black Textured Sweatshirt</h3><div class="new-p">Price 2,800ETB</div></div>
-            </div>
-            <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)">
-                <div class="img-area"><img src="Half-Zip Sweater.jpg"></div>
-                <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">Price 2,400ETB</div></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="category-section">
-        <div class="category-title">Jackets</div>
-        <div class="scroll-wrapper">
-            <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)">
-                <div class="img-area"><img src="Suede vintage jacket.jpg"></div>
-                <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">Price 2,800ETB</div></div>
-            </div>
-            <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)">
-                <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg"></div>
-                <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">Price 3,250ETB</div></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="category-section">
-        <div class="category-title">Exclusive Shoes 👟</div>
-        <div class="scroll-wrapper">
-            <div class="product-card" onclick="openP('U.S. POLO ASSN', 'shoes', 5000)">
-                <div class="img-area"><img src="U.S. POLO ASSN.jpg"></div>
-                <div class="info-area"><h3>U.S. POLO ASSN</h3><div class="new-p">Price 5,000ETB</div></div>
-            </div> 
-            <div class="product-card" onclick="openP('Italian Suede Flat Casual Loafers', 'shoes', 6500)">
-                <div class="img-area"><img src="Italian Suede Flat Casual Loafers.jpg"></div>
-                <div class="info-area"><h3>Italian Suede Flat Casual Loafers</h3><div class="new-p">Price 6,500ETB</div></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="category-section">
-        <div class="category-title">Jeans & Pants 👖</div>
-        <div class="scroll-wrapper">
-            <div class="product-card" onclick="openP('Denim tears Sweatpants', 'clothe', 2850)">
-                <div class="img-area"><img src="Denim tears Sweatpants.jpg"></div>
-                <div class="info-area"><h3>Denim tears Sweatpants</h3><div class="new-p">Price 2,850ETB</div></div>
-            </div>
-            <div class="product-card" onclick="openP('Wide-Leg High Street Casual Jeans', 'clothe', 2850)">
-                <div class="img-area"><img src="Wide-Leg High Street Casual Jeans.jpg"></div>
-                <div class="info-area"><h3>Wide-Leg High Street Casual Jeans</h3><div class="new-p">Price 2,850ETB</div></div>
-            </div>
-        </div>
-    </div>
-    
-    <div style="height: 100px;"></div>
+<div class="promo-bar">
+    VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
+    NOT GLOBAL❌ ONLY IN ADDIS ABABA✅
 </div>
 
+<div class="search-container">
+    <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
+</div>
+
+<div class="category-section">
+    <div class="category-title">Graphic T-Shirts 👕</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('black polo t-shirt', 'clothe', 2200)">
+            <div class="img-area"><img src="black_zip_polo.jpg"></div>
+            <div class="info-area"><h3>black polo t-shirt</h3><div class="new-p">price 2,200ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)">
+            <div class="img-area"><img src="Half zipped black t-shirt.jpg"></div>
+            <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">price 1,800ETB</div></div> 
+        </div>
+        <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)">
+            <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg"></div>
+            <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">price 1,600ETB</div></div> 
+        </div>
+        <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)">
+            <div class="img-area"><img src="Strip knit t-shirt.jpg"></div>
+            <div class="info-area"><h3>Strip knit t-shirt</h3><div class="new-p">price 2,850ETB</div></div> 
+        </div>
+    </div>
+</div>
+
+<div class="category-section">
+    <div class="category-title">Hoodies & Sweaters 🧶</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)">
+            <div class="img-area"><img src="Polo knit sweater.jpg"></div>
+            <div class="info-area"><h3>Polo knit sweater</h3><div class="new-p">Price 2,500ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Black Textured Sweatshirt', 'clothe', 2800)">
+            <div class="img-area"><img src="Black Textured Sweatshirt.jpg"></div>
+            <div class="info-area"><h3>Black Textured Sweatshirt</h3><div class="new-p">Price 2,800ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)">
+            <div class="img-area"><img src="Half-Zip Sweater.jpg"></div>
+            <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">Price 2,400ETB</div></div>
+      </div>
+        <div class="product-card" onclick="openP('Polo cable knit collar soft sweater', 'clothe', 3000)">
+            <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg"></div>
+            <div class="info-area"><h3>Polo cable knit collar soft sweater</h3><div class="new-p">Price 3,000ETB</div></div>
+      </div>
+        <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)">
+            <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg"></div>
+            <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">Price 3,500ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Denim tears Hoodie', 'clothe', 3500)">
+            <div class="img-area"><img src="Denim tears Hoodie.jpg"></div>
+            <div class="info-area"><h3>Denim tears Hoodie</h3><div class="new-p">Price 3,500ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)">
+            <div class="img-area"><img src="Alo official casual half zip sweater.jpg"></div>
+            <div class="info-area"><h3>Alo official casual half zip sweater</h3><div class="new-p">Price 3,000ETB</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="category-section">
+    <div class="category-title">Jackets</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)">
+            <div class="img-area"><img src="Suede vintage jacket.jpg"></div>
+            <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">Price 2,800ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)">
+            <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg"></div>
+            <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">Price 3,250ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)">
+            <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg"></div>
+            <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">Price 3,000ETB</div></div> 
+        </div>
+    </div>
+</div>
+
+<div class="category-section">
+    <div class="category-title">Exclusive Shoes 👟</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('U.S. POLO ASSN', 'shoes', 5000)">
+            <div class="img-area"><img src="U.S. POLO ASSN.jpg"></div>
+            <div class="info-area"><h3>U.S. POLO ASSN</h3><div class="new-p">Price 5,000ETB</div></div>
+        </div> 
+        <div class="product-card" onclick="openP('New European Style High-End canvas casual shoes', 'shoes', 6000)">
+            <div class="img-area"><img src="New European Style High-End canvas casual shoes.jpg"></div>
+            <div class="info-area"><h3>New European Style High-End canvas casual shoes</h3><div class="new-p">Price 6,000ETB</div></div>
+       </div> 
+        <div class="product-card" onclick="openP('Vintage Thick-Sole Puma Sneakers', 'shoes', 5500)">
+            <div class="img-area"><img src="Vintage Thick-Sole Puma Sneakers.jpg"></div>
+            <div class="info-area"><h3>Vintage Thick-Sole Puma Sneakers</h3><div class="new-p">Price 5,500ETB</div></div>
+       </div> 
+        <div class="product-card" onclick="openP('Italian Suede Flat Casual Loafers', 'shoes', 6500)">
+            <div class="img-area"><img src="Italian Suede Flat Casual Loafers.jpg"></div>
+            <div class="info-area"><h3>Italian Suede Flat Casual Loafers</h3><div class="new-p">Price 6,500ETB</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="category-section">
+    <div class="category-title">Jeans & Pants 👖</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('Broken Planet Suede Loose Straight Casual Men’s Pants', 'clothe', 2850)">
+            <div class="img-area"><img src="Broken Planet Suede Loose Straight Casual Men’s Pants.jpg"></div>
+            <div class="info-area"><h3>Broken Planet Suede Loose Straight Casual Men’s Pants</h3><div class="new-p">Price 2,850ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)">
+            <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg"></div>
+            <div class="info-area"><h3>Broken Planet Fleece Sweatpants</h3><div class="new-p">Price 2,500ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)">
+            <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg"></div>
+            <div class="info-area"><h3>Loose Hip-Hop polo Streetwear Sweatpants</h3><div class="new-p">Price 2,850ETB</div></div>
+       </div>
+        <div class="product-card" onclick="openP('Denim tears Sweatpants', 'clothe', 2850)">
+            <div class="img-area"><img src="Denim tears Sweatpants.jpg"></div>
+            <div class="info-area"><h3>Denim tears Sweatpants</h3><div class="new-p">Price 2,850ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Wide-Leg High Street Casual Jeans', 'clothe', 2850)">
+            <div class="img-area"><img src="Wide-Leg High Street Casual Jeans.jpg"></div>
+            <div class="info-area"><h3>Wide-Leg High Street Casual Jeans</h3><div class="new-p">Price 2,850ETB</div></div>
+        </div>
+        </div>
+    </div>
+</div>
+    
+<div class="category-section">
+    <div class="category-title">Full oufits</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('Alo-Style Tracksuit', 'clothe', 6000)">
+            <div class="img-area"><img src="Alo-Style Tracksuit.jpg"></div>
+            <div class="info-area"><h3>Alo-Style Tracksuit</h3><div class="new-p">Price 6,000ETB</div></div>
+      </div>
+        <div class="product-card" onclick="openP('Essentials-Style Tracksuit', 'clothe', 6000)">
+            <div class="img-area"><img src="Essentials-Style Tracksuit.jpg"></div>
+            <div class="info-area"><h3>Essentials-Style Tracksuit</h3><div class="new-p">Price 6,000ETB</div></div>
+      </div>
+        <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)">
+            <div class="img-area"><img src="Denim tears-Style tracksuit .jpg"></div>
+            <div class="info-area"><h3>Denim tears-Style tracksuit</h3><div class="new-p">Price 7,000ETB</div></div>
+       </div>      
+        <div class="product-card" onclick="openP('Polo-Style Tracksuit', 'clothe', 6000)">
+            <div class="img-area"><img src="Polo-Style Tracksuit.jpg"></div>
+            <div class="info-area"><h3>Polo-Style Tracksuit</h3><div class="new-p">Price 6,000ETB</div></div>
+        </div>
+    </div>
+</div>
+    
 <div class="cart-float" onclick="showCart()" id="cart-btn">🛒<span class="cart-count" id="cart-count">0</span></div>
 <a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
 
 <div id="pModal" class="modal">
     <div class="modal-content">
-        <img id="modal-img" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover;">
-        <h2 id="m-name" style="margin-top:0; font-family:'Playfair Display', serif;"></h2>
-        <label style="font-size:11px; font-weight:bold; color:#999;">SELECT SIZE</label>
-        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; border:1px solid #ddd; background:#fff; color:#000;"></select>
+        <img id="modal-img" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; max-height: 400px;">
+
+        <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif;">Product</h2>
+        <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
+        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; border: 1px solid #ddd; background: #fff; color: #000;"></select>
         <button class="btn" onclick="addToCart()">Add to Bag</button>
         <button class="btn" style="background:#333; color:white;" onclick="closeModal()">Back</button>
     </div>
 </div>
-    
+
 <div id="cartModal" class="modal">
     <div class="modal-content">
         <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
         <div id="cart-items-list" style="max-height: 150px; overflow-y: auto; margin-bottom: 10px;"></div>
-        <div class="total-display">Total: <span id="cart-total">0</span> ETB</div>
+        
+        <div class="total-price-display" style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:10px; margin:15px 0; text-align:right;">
+            Total: <span id="cart-total">0</span> ETB
+        </div>
+
         <form id="orderForm">
             <input type="text" id="custName" name="Customer_Name" placeholder="Full Name" required class="order-input">
             <input type="tel" id="custPhone" name="Phone_Number" placeholder="Phone Number" required class="order-input">
             <input type="text" id="custAddress" name="Delivery_Address" placeholder="Delivery Address" required class="order-input">
             <input type="hidden" name="Order_Summary" id="form-summary">
         </form>
+
         <div class="payment-info">
-            <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
-            📞 0939620004 | 0940028820
-        </div>
-        <button class="btn" onclick="submitOrder()">Confirm Order</button>
-        <button class="btn" style="background:#333; color:white;" onclick="closeCart()">Close</button>
+    <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
+    📞 0939620004<br>
+    📞 0940028820<br><br>
+
+    <strong style="color:#FFD700;">Important:</strong><br>
+    <p>Prices may change slightly depending on supplier stock or shipping. We’ll confirm the final price on Telegram before payment.</p>
+</div>
+
+        <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm All Items</button>
+        <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
     </div>
 </div>
 
@@ -232,7 +329,7 @@
 let cart = [];
 const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
 let currentP = "";
-let currentPrice = 0;
+let currentPrice = 0; // Fixed: Tracks the price of the current item
 
 function filterProducts() {
     let input = document.getElementById('search-input').value.toLowerCase();
@@ -243,29 +340,31 @@ function filterProducts() {
     }
 }
 
+// Fixed openP to accept and display product images and prices
 function openP(n, t, price) {
-    currentP = n;
-    currentPrice = price;
-    document.getElementById("m-name").innerText = n;
+    currentP = n || "Product";
+    currentPrice = price || 0; // Store the price
+    document.getElementById("m-name").innerText = currentP;
+
+    // Fix: Grabs the image source from the card that was clicked
     let clickedCardImg = event.currentTarget.querySelector('img').src;
     document.getElementById("modal-img").src = clickedCardImg;
+
     let b = document.getElementById("size-box");
     b.innerHTML = "";
-    (sz[t] || sz.acc).forEach(s => {
-        let o = document.createElement("option");
-        o.text = s;
-        b.add(o);
-    });
+    (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
     document.getElementById("pModal").style.display = "block";
 }
 
 function addToCart() {
     let size = document.getElementById("size-box").value;
+    // Fixed: Now saves the price along with name and size
     cart.push({ name: currentP, size: size, price: currentPrice });
     updateCartUI();
     closeModal();
 }
 
+// Added Remove function
 function removeFromCart(index) {
     cart.splice(index, 1);
     updateCartUI();
@@ -277,34 +376,55 @@ function updateCartUI() {
     document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
 }
 
+// Added Remove button and Price Calculator to showCart
 function showCart() {
     const list = document.getElementById("cart-items-list");
     let total = 0;
     list.innerHTML = cart.map((item, index) => {
-        total += item.price;
+        total += item.price; // Fixed: Calculates the total
         return `
         <div style="padding:10px 0; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center;">
             <span>${item.name} (${item.size})</span>
-            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff3b30; cursor:pointer; font-size:10px;">REMOVE</button>
+            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">REMOVE</button>
         </div>`;
     }).join("");
+    
+    // Fixed: Displays the calculated total
     document.getElementById("cart-total").innerText = total.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
 }
 
 function submitOrder() {
     if(cart.length === 0) return;
+
+    // Get Customer Data
+    const name = document.getElementById('custName').value;
+    const phone = document.getElementById('custPhone').value;
+    const address = document.getElementById('custAddress').value;
+
+    if(!name || !phone || !address) {
+        alert("Please fill in your name, phone, and delivery address!");
+        return;
+    }
+    
+    let summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
+    // Fixed: Included the total price in the form summary for email
+    document.getElementById("form-summary").value = summary + " | Total: " + document.getElementById("cart-total").innerText + " ETB";
+    
     const form = document.getElementById("orderForm");
-    const summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
-    document.getElementById("form-summary").value = summary;
+    const formData = new FormData(form);
 
     fetch("https://formspree.io/f/xkoqwjke", {
         method: 'POST',
-        body: new FormData(form),
+        body: formData,
         headers: { 'Accept': 'application/json' }
-    }).then(() => {
-        alert("Order sent! Total: " + document.getElementById("cart-total").innerText + " ETB");
-        window.location.href = "https://t.me/OUMER_FETE";
+    }).then(response => {
+        if (response.ok) {
+            alert("Order received successfully!\n\nName: " + name + "\nItems: " + summary + "\n\nRedirecting to Telegram...");
+            window.location.href = "https://t.me/OUMER_FETE";
+        } else {
+            alert("Oops! There was a problem sending your order.");
+        }
     });
 }
 
