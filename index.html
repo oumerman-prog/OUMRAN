@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OUMRAN STORE</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     
@@ -37,7 +37,7 @@
         .search-container { padding: 15px; background: rgba(0,0,0,0.8); }
         #search-input { 
             width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); 
-            background: #222; color: white; font-size: 14px; box-sizing: border-box; text-align: center;
+            background: #222; color: white; font-size: 16px; box-sizing: border-box; text-align: center;
         }
 
         .category-section { padding: 35px 0 0 15px; text-align: left; position: relative; z-index: 1; }
@@ -88,16 +88,19 @@
 
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); }
         .modal-content { background: #1a1a1a; color: white; margin: 5% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; overflow-y: auto; max-height: 90vh; }
-        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
+        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; transition: 0.3s; }
+        .btn:disabled { background: #555; cursor: not-allowed; }
         
         .payment-info {
             background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px;
             border-left: 4px solid #0088cc; color: #ccc;
         }
 
-        .order-input {
+        /* 16px Font prevents iOS Auto-Zoom */
+        .order-input, #size-box {
             width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; 
             border: 1px solid #444; background: #000; color: white; box-sizing: border-box;
+            font-size: 16px; 
         }
         
         @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
@@ -274,7 +277,7 @@
         <img id="modal-img" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; max-height: 400px;">
         <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif;">Product</h2>
         <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
-        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; border: 1px solid #ddd; background: #fff; color: #000;"></select>
+        <select id="size-box" class="order-input"></select>
         <button class="btn" onclick="addToCart()">Add to Bag</button>
         <button class="btn" style="background:#333; color:white;" onclick="closeModal()">Back</button>
     </div>
@@ -299,8 +302,8 @@
         <div class="payment-info">
             <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
             📞 0939620004 | 0940028820<br><br>
-              <p>Important: Prices may change slightly depending on supplier stock or shipping. We’ll confirm the final price on Telegram before payment.</p>
-</div>
+            <p id="status-msg">Important: Prices may change slightly depending on supplier stock or shipping. We’ll confirm the final price on Telegram before payment.</p>
+        </div>
 
         <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm Order</button>
         <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
@@ -326,13 +329,9 @@ function openP(n, t, price) {
     currentP = n || "Product";
     currentPrice = price || 0;
     document.getElementById("m-name").innerText = currentP;
-
-    // FREEZE SCROLL
     document.body.style.overflow = "hidden";
-
     let clickedCardImg = event.currentTarget.querySelector('img').src;
     document.getElementById("modal-img").src = clickedCardImg;
-
     let b = document.getElementById("size-box");
     b.innerHTML = "";
     (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
@@ -368,11 +367,8 @@ function showCart() {
             <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">REMOVE</button>
         </div>`;
     }).join("");
-    
     document.getElementById("cart-total").innerText = total.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
-    
-    // FREEZE SCROLL
     document.body.style.overflow = "hidden";
 }
 
@@ -381,7 +377,13 @@ function submitOrder() {
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const address = document.getElementById('custAddress').value;
+    const btn = document.getElementById('checkout-btn');
+    const statusMsg = document.getElementById('status-msg');
+
     if(!name || !phone || !address) { alert("Fill all details!"); return; }
+    
+    btn.disabled = true;
+    btn.innerText = "Processing...";
     
     let summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
     document.getElementById("form-summary").value = summary + " | Total: " + document.getElementById("cart-total").innerText + " ETB";
@@ -390,20 +392,24 @@ function submitOrder() {
         method: 'POST',
         body: new FormData(document.getElementById("orderForm")),
         headers: { 'Accept': 'application/json' }
-    }).then(() => { window.location.href = "https://t.me/OUMER_FETE"; });
+    }).then(() => { 
+        btn.style.background = "#28a745";
+        btn.style.color = "white";
+        btn.innerText = "Order Received! 🚀";
+        statusMsg.innerHTML = "<b style='color:var(--gold)'>Success! Redirecting to Telegram to finalize...</b>";
+        
+        setTimeout(() => {
+            window.location.href = "https://t.me/OUMER_FETE"; 
+        }, 2000);
+    }).catch(() => {
+        alert("Something went wrong.");
+        btn.disabled = false;
+        btn.innerText = "Confirm Order";
+    });
 }
 
-function closeModal() { 
-    document.getElementById("pModal").style.display = "none"; 
-    // UNFREEZE SCROLL
-    document.body.style.overflow = "auto";
-}
-
-function closeCart() { 
-    document.getElementById("cartModal").style.display = "none"; 
-    // UNFREEZE SCROLL
-    document.body.style.overflow = "auto";
-}
+function closeModal() { document.getElementById("pModal").style.display = "none"; document.body.style.overflow = "auto"; }
+function closeCart() { document.getElementById("cartModal").style.display = "none"; document.body.style.overflow = "auto"; }
 </script>
 </body>
 </html>
