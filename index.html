@@ -378,44 +378,20 @@ function showCart() {
 
 function submitOrder() {
     if(cart.length === 0) return;
-
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const address = document.getElementById('custAddress').value;
-    if(!name || !phone || !address) { 
-        alert("Fill all details!"); 
-        return; 
-    }
-
+    if(!name || !phone || !address) { alert("Fill all details!"); return; }
+    
     let summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
     document.getElementById("form-summary").value = summary + " | Total: " + document.getElementById("cart-total").innerText + " ETB";
-
-    // Reset zoom & scroll immediately before sending
-    document.body.style.overflow = "auto";
-    document.body.style.zoom = "100%";
-    window.scrollTo(0,0);
-
-    // Thank-you message
-    alert("Thank You for shopping with us! For more information and payment screenshot, we will direct you to your Telegram channel.");
-
-    // Send form data to Formspree
+     // Thank-you message
+    alert("Thank You for shopping with us! For more information and payment screenshot, we will direct you to your Telegram channel.
     fetch("https://formspree.io/f/xkoqwjke", {
         method: 'POST',
         body: new FormData(document.getElementById("orderForm")),
         headers: { 'Accept': 'application/json' }
-    }).then(() => { 
-        // Redirect to Telegram after submission
-        window.location.href = "https://t.me/OUMER_FETE"; 
-    });
-}
-
-// ===== Zoom reset after typing in input fields =====
-const orderInputs = document.querySelectorAll('#custName, #custPhone, #custAddress');
-orderInputs.forEach(input => {
-    input.addEventListener('blur', () => {
-        document.body.style.zoom = "100%";
-        document.body.style.overflow = "auto";
-    });
+    }).then(() => { window.location.href = "https://t.me/OUMER_FETE"; });
 }
 
 function closeModal() { 
