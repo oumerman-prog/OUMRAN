@@ -385,8 +385,7 @@ function submitOrder() {
     
     let summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
     document.getElementById("form-summary").value = summary + " | Total: " + document.getElementById("cart-total").innerText + " ETB";
-     // Thank-you message
-    alert("Thank You for shopping with us! For more information and payment screenshot, we will direct you to your Telegram channel.
+    
     fetch("https://formspree.io/f/xkoqwjke", {
         method: 'POST',
         body: new FormData(document.getElementById("orderForm")),
