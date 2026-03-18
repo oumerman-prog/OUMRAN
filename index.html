@@ -34,6 +34,10 @@
             font-weight: 900; text-align: center; border-bottom: 1px solid #222;
         }
 
+        #viewing-count { 
+            text-align:center; font-size:12px; font-weight:900; margin:5px 0; color:var(--gold);
+        }
+
         .search-container { padding: 15px; background: rgba(0,0,0,0.8); }
         #search-input { 
             width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); 
@@ -65,6 +69,7 @@
             position: relative; 
             box-shadow: 0 12px 25px rgba(0,0,0,0.7);
             transition: all 0.3s ease;
+            cursor:pointer;
         }
 
         .img-area { height: 220px; background: #f9f9f9; overflow: hidden; }
@@ -78,13 +83,14 @@
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
 
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); }
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow:hidden; }
         .modal-content { background: #1a1a1a; color: white; margin: 5% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; overflow-y: auto; max-height: 90vh; }
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         .btn:disabled { background: #444; color: #888; cursor: not-allowed; }
         
         .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
+        .cancel-btn { background:#ff3b30; color:white; margin-top:5px; }
     </style>
 </head>
 <body>
@@ -100,6 +106,8 @@
     VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
     NOT GLOBAL❌ ONLY IN ADDIS ABABA✅
 </div>
+
+<div id="viewing-count">X people viewing</div>
 
 <div class="search-container">
     <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
@@ -214,13 +222,15 @@
         </div>
         <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)">
             <div class="img-area"><img src="Denim tears-Style tracksuit .jpg"></div>
-            <div class="info-area"><h3>Denim tears-Style tracksuit</h3><div class="new-p">Price 7,000ETB</div></
+            <div class="info-area"><h3>Denim tears-Style tracksuit</h3><div class="new-p">Price 7,000ETB</div></div>
         </div>
     </div>
 </div>
+
 <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
 <a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
 
+<!-- PRODUCT MODAL -->
 <div id="pModal" class="modal">
     <div class="modal-content">
         <img id="modal-img" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; max-height: 400px;">
@@ -228,10 +238,11 @@
         <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
         <select id="size-box" class="order-input"></select>
         <button class="btn" onclick="addToCart()">Add to Bag</button>
-        <button class="btn" style="background:#333; color:white;" onclick="closeModal()">Back</button>
+        <button class="btn cancel-btn" onclick="closeModal()">Cancel</button>
     </div>
 </div>
 
+<!-- CART MODAL -->
 <div id="cartModal" class="modal">
     <div class="modal-content">
         <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
@@ -247,16 +258,18 @@
         <div class="payment-info">
             <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
             📞 0939620004 | 0940028820<br>
+            <em>Prices may change slightly depending on supplier stock or shipping. We'll confirm the final price on Telegram before payment.</em>
         </div>
         <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm Order</button>
         <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
     </div>
 </div>
 
+<!-- SUCCESS MODAL -->
 <div id="successModal" class="modal">
     <div class="modal-content" style="text-align: center;">
         <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">Order Received ✨</h2>
-        <p>Thank you for shopping with OUMRAN STORE!✨ For more information and payment screenshot we will direct you to you telegram channel.</p>
+        <p>Thank you for shopping with OUMRAN STORE!✨ For more information and payment screenshot we will direct you to your telegram channel.</p>
         <button class="btn" style="background: var(--tg); color: white;" onclick="redirectToTelegram()">Open Telegram</button>
     </div>
 </div>
@@ -265,6 +278,10 @@
 let cart = [];
 const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
 let currentP = ""; let currentPrice = 0;
+
+// RANDOM VIEWERS
+let viewers = Math.floor(Math.random() * 10) + 1;
+document.getElementById("viewing-count").innerText = `${viewers} people viewing`;
 
 function filterProducts() {
     let input = document.getElementById('search-input').value.toLowerCase();
@@ -290,13 +307,23 @@ function addToCart() {
     document.getElementById("cart-count").innerText = cart.length;
     document.getElementById("cart-btn").style.display = "flex";
     closeModal();
+    showCart();
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    document.getElementById("cart-count").innerText = cart.length;
+    showCart();
 }
 
 function showCart() {
     let total = 0;
-    document.getElementById("cart-items-list").innerHTML = cart.map((item) => {
+    document.getElementById("cart-items-list").innerHTML = cart.map((item, i) => {
         total += item.price;
-        return `<div style="padding:10px 0; border-bottom:1px solid #333;">${item.name} (${item.size})</div>`;
+        return `<div style="padding:10px 0; border-bottom:1px solid #333;">
+                    ${item.name} (${item.size}) 
+                    <button class="btn cancel-btn" onclick="removeItem(${i})">Cancel</button>
+                </div>`;
     }).join("");
     document.getElementById("cart-total").innerText = total.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
