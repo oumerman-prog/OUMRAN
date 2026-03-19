@@ -9,18 +9,18 @@
     <style>
         :root { --bg: #000; --card: #fff; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; }
         
-        /* SPLASH SCREEN STYLES */
+        /* LUXURY SPLASH SCREEN */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: #000; display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 9999;
             transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
         }
-        .splash-content { text-align: center; }
+        .splash-content { text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
         .splash-logo { 
-            font-family: 'Playfair Display', serif; font-size: 48px; 
-            letter-spacing: 12px; font-weight: 700; font-style: italic;
-            text-transform: uppercase; margin-bottom: 10px;
+            font-family: 'Playfair Display', serif; font-size: 52px; 
+            letter-spacing: 15px; font-weight: 700; font-style: italic;
+            text-transform: uppercase; margin-bottom: 5px;
             background: linear-gradient(90deg, #816604 0%, #FFD700 50%, #816604 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -29,10 +29,15 @@
             animation: fadeInSplash 1.5s ease forwards, shine 3s linear infinite;
             animation-delay: 0s, 1s;
         }
-        .splash-sub { 
-            font-size: 10px; color: #666; letter-spacing: 5px; 
+        .splash-tagline { 
+            font-size: 9px; color: #555; letter-spacing: 6px; 
             text-transform: uppercase; opacity: 0;
-            animation: fadeInSplash 2s ease forwards; animation-delay: 0.5s;
+            animation: fadeInSplash 2s ease forwards; animation-delay: 0.4s;
+        }
+        .splash-footer {
+            padding-bottom: 50px; font-size: 11px; color: var(--gold); 
+            letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
+            opacity: 0; animation: fadeInSplash 2.5s ease forwards; animation-delay: 0.8s;
         }
         .splash-exit { transform: translateY(-100%); }
 
@@ -58,7 +63,7 @@
         }
         @keyframes shine { to { background-position: 200% center; } }
 
-        /* MAIN PAGE STYLES */
+        /* MAIN CONTENT STYLES */
         body.modal-open { overflow: hidden !important; height: 100vh; }
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
@@ -120,10 +125,10 @@
 
 <div id="splash-screen">
     <div class="splash-content">
-        <div class="splash-sub">PREMIUM CHINESE STREETWEAR</div>
+        <div class="splash-tagline">PREMIUM CHINESE STREETWEAR</div>
         <div class="splash-logo">OUMRAN</div>
-        <div class="splash-sub">DEFINING ADDIS ABABA LUXURY</div>
     </div>
+    <div class="splash-footer">DEFINING ADDIS ABABA LUXURY</div>
 </div>
 
 <div id="added-toast">
@@ -313,7 +318,7 @@ window.onload = function() {
     setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         splash.classList.add('splash-exit');
-    }, 3200);
+    }, 3800); // Slightly longer to appreciate the luxury text
 };
 
 function filterProducts() {
@@ -340,7 +345,7 @@ function addToCart() {
     updateCartDisplay();
     closeModal();
     
-    // TRIGGER PROFESSIONAL TOAST WITH ITEM NAME
+    // DYNAMIC PROFESSIONAL TOAST
     const toast = document.getElementById("added-toast");
     const toastText = document.getElementById("toast-text");
     toastText.innerHTML = `<strong>${currentP}</strong> Added`;
