@@ -9,12 +9,13 @@
     <style>
         :root { --bg: #000; --card: #fff; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; }
         
-        /* FULL LUXURY SPLASH SCREEN ANIMATION */
+        /* UPDATED: LUXURY FADE-OUT SPLASH SCREEN */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: #000; display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 9999;
-            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            /* Smooth fade transition */
+            transition: opacity 1s ease-out, visibility 1s;
         }
         .splash-content { text-align: center; }
         .welcome-msg { 
@@ -39,7 +40,12 @@
             letter-spacing: 3px; text-transform: uppercase; font-weight: 400;
             opacity: 0; animation: fadeInSplash 1s ease forwards; animation-delay: 1s;
         }
-        .splash-exit { transform: translateY(-100%); }
+        
+        /* THE FADE EFFECT */
+        .splash-exit { 
+            opacity: 0; 
+            visibility: hidden; 
+        }
 
         @keyframes fadeInSplash { 
             from { opacity: 0; transform: translateY(10px); } 
@@ -63,7 +69,7 @@
         #added-toast.show { right: 20px; }
         .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-        /* CORE SITE STYLES */
+        /* CORE STORE STYLES */
         body.modal-open { overflow: hidden !important; height: 100vh; }
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
@@ -110,12 +116,10 @@
         .info-area h3 { font-size: 11px; margin: 0; color: #444; font-weight: bold; }
         .new-p { font-weight: 900; font-size: 14px; color: #000; margin-top: 5px; }
         
-        /* FLOATING INTERFACE */
         .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
         
-        /* MODAL STYLES */
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); }
         .modal-content { background: #1a1a1a; color: white; margin: 5% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; overflow-y: auto; max-height: 90vh; }
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
@@ -297,7 +301,7 @@
         <div class="payment-info">
             <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
             📞 0939620004 | 0940028820<br>
-            <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Prices may change slightly depending on supplier stock or shipping. We'll confirm the final price on Telegram before payment.</span>
+            <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Confirmation via Telegram.</span>
         </div>
         <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm Order</button>
         <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
@@ -306,7 +310,7 @@
 
 <div id="successModal" class="modal">
     <div class="modal-content" style="text-align: center;">
-        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">Order Received,Thank you for shopping with OUMRAN STORE!✨For more information and payment screenshot we will direct you to our telegram channel!</h2>
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">Order Received ✨</h2>
         <p>Redirecting to Telegram...</p>
         <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Open Telegram</button>
     </div>
@@ -317,7 +321,7 @@ let cart = [];
 const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
 let currentP = ""; let currentPrice = 0;
 
-// ANIMATION LASTS 3 SECONDS
+// FADE DISAPPEAR AFTER 3 SECONDS
 window.onload = function() {
     setTimeout(() => {
         document.getElementById('splash-screen').classList.add('splash-exit');
@@ -396,9 +400,6 @@ function submitOrder() {
     }).then(() => {
         document.getElementById("cartModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
-    }).catch(err => {
-        alert("Checkout failed. Contact Telegram manually.");
-        console.error(err);
     });
 }
 function closeModal() { document.body.classList.remove('modal-open'); document.getElementById("pModal").style.display = "none"; }
