@@ -9,13 +9,13 @@
     <style>
         :root { --bg: #000; --card: #fff; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; }
         
-        /* HARD SCROLL LOCK FOR MOBILE */
+        /* HARD SCROLL LOCK FOR MOBILE - PREVENTS BOUNCING */
         html.loading, body.loading { 
             overflow: hidden !important; 
             height: 100% !important; 
             position: fixed; 
             width: 100%;
-            touch-action: none; /* Stops all swiping */
+            touch-action: none; 
         }
 
         /* FULL-SCREEN SPLASH SCREEN */
@@ -56,6 +56,22 @@
             to { opacity: 1; transform: translateY(0); } 
         }
         @keyframes shine { to { background-position: 200% center; } }
+
+        /* NOTIFICATION TOAST */
+        #added-toast {
+            position: fixed; top: 20px; right: -400px; 
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            color: white; padding: 15px 25px;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);
+            z-index: 5000; font-weight: 600; font-size: 13px;
+            display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+        }
+        #added-toast.show { right: 20px; }
+        .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
         /* CORE STORE STYLES */
         body { 
@@ -108,13 +124,16 @@
         .new-p { font-weight: 900; font-size: 14px; color: #000; margin-top: 5px; }
         
         .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
+        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
         
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; }
         .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; position: relative; }
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
+        .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
+        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
     </style>
 </head>
 <body class="loading">
@@ -125,6 +144,11 @@
         <div class="splash-logo">OUMRAN<br>STORE</div>
         <div class="splash-slogan">DEFINING ADDIS ABABA LUXURY</div>
     </div>
+</div>
+
+<div id="added-toast">
+    <div class="toast-icon">✓</div>
+    <span id="toast-text">Added to Bag</span>
 </div>
 
 <div id="motion-bg"></div>
@@ -283,6 +307,11 @@
         <input type="text" id="custName" placeholder="Full Name" class="order-input">
         <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
         <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
+        <div class="payment-info">
+            <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
+            📞 0939620004 | 0940028820<br>
+            <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Prices may change slightly depending on supplier stock. We'll confirm the final price on Telegram.</span>
+        </div>
         <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm Order</button>
         <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
     </div>
@@ -291,6 +320,7 @@
 <div id="successModal" class="modal">
     <div class="modal-content" style="text-align: center;">
         <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); ">Order Received!✨</h2>
+        <p>Thank you for shopping! We will direct you to our Telegram channel for confirmation.</p>
         <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Open Telegram</button>
     </div>
 </div>
@@ -298,8 +328,9 @@
 <script>
 let cart = [];
 const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
+let currentP = ""; 
+let currentPrice = 0;
 
-// LOCK SCROLL ON LOAD
 document.documentElement.classList.add('loading');
 document.body.classList.add('loading');
 
@@ -307,7 +338,6 @@ window.addEventListener('load', () => {
     window.scrollTo(0, 0);
     setTimeout(() => {
         document.getElementById('splash-screen').classList.add('splash-exit');
-        // UNLOCK SCROLL
         document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
     }, 3000); 
@@ -348,6 +378,10 @@ function openP(n, t, price) {
 function addToCart() {
     cart.push({ name: currentP, size: document.getElementById("size-box").value, price: currentPrice });
     updateCartDisplay(); closeModal();
+    const toast = document.getElementById("added-toast");
+    document.getElementById("toast-text").innerHTML = `<strong>${currentP}</strong> Added`;
+    toast.classList.add("show");
+    setTimeout(() => { toast.classList.remove("show"); }, 2800);
 }
 
 function updateCartDisplay() {
@@ -361,7 +395,12 @@ function showCart() {
     const list = document.getElementById("cart-items-list");
     list.innerHTML = cart.map((item, i) => {
         total += item.price;
-        return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br><span>${item.price.toLocaleString()} ETB</span></span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;
+        return `
+            <div class="cart-item">
+                <span><strong>${item.name}</strong> (${item.size})<br>
+                <span style="color:var(--gold);">${item.price.toLocaleString()} ETB</span></span>
+                <button class="remove-btn" onclick="removeItem(${i})">REMOVE</button>
+            </div>`;
     }).join("");
     document.getElementById("cart-total").innerText = total.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
@@ -375,10 +414,14 @@ function removeItem(index) {
 function submitOrder() {
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
+    const address = document.getElementById('custAddress').value || "No address provided";
+    if(!name || !phone) { alert("Please enter Name and phone number!"); return; }
+    
     const botToken = "8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc";
     const chatId = "5715582254";
     let itemsStr = cart.map(i => `▫️ ${i.name} (${i.size}) - ${i.price} ETB`).join("\n");
-    let text = `🛍️ *NEW ORDER*\n👤 Name: ${name}\n📞 Phone: ${phone}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
+    let text = `🛍️ *NEW ORDER*\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
+    
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
