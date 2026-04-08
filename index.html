@@ -167,6 +167,19 @@
         
         /* PRICE UPDATER DISPLAY */
         .modal-price { font-size: 22px; font-weight: 900; color: var(--gold); margin: 10px 0; display: block; }
+
+        /* SCREEN FIT UPDATER FOR MOBILE */
+        @media (max-width: 767px) {
+            .modal-content { margin: 10px auto; width: 90%; padding: 15px; }
+            #modal-img { 
+                max-height: 250px !important; 
+                object-fit: contain !important; 
+                margin-bottom: 10px !important; 
+            }
+            .modal-price { font-size: 18px; margin: 5px 0; }
+            .variant-section { margin-bottom: 10px; }
+            .btn { padding: 14px; margin-top: 10px; }
+        }
     </style>
 </head>
 <body class="loading">
@@ -533,7 +546,7 @@ window.onclick = function(event) {
     if (event.target.classList.contains('modal')) { closeModal(); closeCart(); }
 }
 
-// --- PERSISTENT CART LOGIC (ADDED BELOW) ---
+// --- PERSISTENT CART LOGIC ---
 
 function saveCart() {
     localStorage.setItem('oumer_cart', JSON.stringify(cart));
