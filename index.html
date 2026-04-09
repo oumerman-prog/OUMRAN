@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OUMRAN STORE | ADDIS ABABA LUXURY</title>
+    <title>OUMRAN STORE</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     
     <style>
@@ -92,7 +92,7 @@
             position: sticky; top: 0; z-index: 100; text-align: center;
         }
         .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
-        .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; text-transform: uppercase; }
+        .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
         
         /* VARIANT SCROLL STYLES - UPDATED FOR NO NAMES */
         .variant-section { margin-bottom: 15px; }
@@ -122,14 +122,14 @@
         }
 
         .promo-bar { 
-            background: rgba(0,0,0,0.8); color: #fff; font-size: 10px; padding: 12px; 
-            font-weight: 900; text-align: center; border-bottom: 1px solid #222; letter-spacing: 1px;
+            background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; 
+            font-weight: 900; text-align: center; border-bottom: 1px solid #222;
         }
         .search-container { padding: 15px; background: rgba(0,0,0,0.6); }
         #search-input { 
             width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); 
-            background: rgba(34,34,34,0.9); color: white; font-size: 15px; box-sizing: border-box; text-align: center;
-            outline: none; font-family: 'Inter', sans-serif;
+            background: rgba(34,34,34,0.9); color: white; font-size: 16px; box-sizing: border-box; text-align: center;
+            outline: none;
         }
         
         .category-section { padding: 35px 0 0 0; text-align: left; position: relative; z-index: 1; }
@@ -150,7 +150,7 @@
         .img-area img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
         
         .info-area { padding: 12px; }
-        .info-area h3 { font-size: 11px; margin: 0; color: #444; font-weight: bold; height: 30px; overflow: hidden; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-area h3 { font-size: 11px; margin: 0; color: #444; font-weight: bold; height: 30px; overflow: hidden; }
         .new-p { font-weight: 900; font-size: 14px; color: #000; margin-top: 5px; }
         
         .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
@@ -159,26 +159,34 @@
         
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; }
         .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; position: relative; }
-        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
         .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
-        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
-        
+        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: 
+              /* SCREEN FIT UPDATER FOR MOBILE (WIDER BOX) */
         @media (max-width: 767px) {
+            /* Width changed from 90% to 95%, margin from 10px to 8px */
             .modal-content { margin: 9px auto; width: 93%; padding: 15px; } 
-            #modal-img { max-height: 250px !important; object-fit: contain !important; margin-bottom: 10px !important; }
+            
+            #modal-img { 
+                max-height: 250px !important; 
+                object-fit: contain !important; 
+                margin-bottom: 10px !important; 
+            }
             .modal-price { font-size: 18px; margin: 5px 0; }
             .variant-section { margin-bottom: 10px; }
             .btn { padding: 14px; margin-top: 10px; }
-        }
+
+            }
     </style>
 </head>
 <body class="loading">
 
 <div id="splash-screen">
     <div class="splash-content">
-        <div class="welcome-msg">Experience the Extraordinary</div>
+       <div class="splash-slogan">Experience the Extraordinary</div>
+        <div class="welcome-msg">WELCOME TO</div>
         <div class="splash-logo">OUMRAN<br>STORE</div>
         <div class="splash-slogan">DEFINING ADDIS ABABA LUXURY</div>
     </div>
@@ -186,183 +194,184 @@
 
 <div id="added-toast">
     <div class="toast-icon">✓</div>
-    <span id="toast-text">Secured in Bag</span>
+    <span id="toast-text">Added to Bag</span>
 </div>
 
 <div id="motion-bg"></div>
 
 <header>
     <img src="IMG_8765.jpeg" alt="Logo" class="header-logo">
-    <span class="brand-name">OUMRAN LUXURY</span>
+    <span class="brand-name">OUMRAN STORE📲</span>
 </header>
 
 <div class="promo-bar">
-    DIRECT IMPORT • PREMIUM SELECTION • ADDIS ABABA EXCLUSIVE
+    VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
+    NOT GLOBAL❌ ONLY IN ADDIS ABABA✅
 </div>
 
 <div class="search-container">
-    <input type="text" id="search-input" placeholder="Discover your next piece..." onkeyup="filterProducts()">
+    <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
 </div>
 
 <main id="store-main">
     <div class="category-section">
-        <div class="category-title">Signature Graphic Tees</div>
+        <div class="category-title">Graphic T-Shirts 👕</div>
         <div class="scroll-wrapper"> 
             <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
                 <div class="img-area"><img src="Half zipped black t-shirt.jpg" alt="Half zipped black t-shirt"></div>
-                <div class="info-area"><h3>Half-Zipped Noir Tee</h3><div class="new-p">1,800 ETB</div></div> 
+                <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">1,800 ETB</div></div> 
             </div>
             <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)" data-variants='[{"name":"Grey","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"}]'>
                 <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg" alt="Lapel Short-Sleeved Sweater"></div>
-                <div class="info-area"><h3>Lapel Knit Polo</h3><div class="new-p">1,600 ETB</div></div> 
+                <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div> 
             </div>
             <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'>
                 <div class="img-area"><img src="Strip knit t-shirt.jpg" alt="Strip knit t-shirt"></div>
-                <div class="info-area"><h3>Textured Stripe Knit</h3><div class="new-p">2,850 ETB</div></div>
+                <div class="info-area"><h3>Strip knit t-shirt</h3><div class="new-p">2,850 ETB</div></div>
             </div>
         </div>
     </div>
 
     <div class="category-section">
-        <div class="category-title">Premium Knitwear & Fleece</div>
+        <div class="category-title">Hoodies & Sweaters 🧶</div>
         <div class="scroll-wrapper">
             <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
                 <div class="img-area"><img src="Polo knit sweater.jpg" alt="Polo knit sweater"></div>
-                <div class="info-area"><h3>Classic Polo Knit</h3><div class="new-p">2,500 ETB</div></div>
+                <div class="info-area"><h3>Polo knit sweater</h3><div class="new-p">2,500 ETB</div></div>
            </div>
             <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'>
                 <div class="img-area"><img src="Half-Zip Sweater.jpg" alt="Half-Zip Sweater"></div>
-                <div class="info-area"><h3>Minimalist Half-Zip</h3><div class="new-p">2,400 ETB</div></div>
+                <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Polo cable knit collar soft sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
                 <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg" alt="Polo cable knit collar soft sweater"></div>
-                <div class="info-area"><h3>Soft Cable-Knit Collar</h3><div class="new-p">3,000 ETB</div></div>
+                <div class="info-area"><h3>Polo cable knit collar soft sweater</h3><div class="new-p">3,000 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)" data-variants='[{"name":"Grey","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"Blue","img":"blue_versatile.jpg"}]'>
                 <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg" alt="Versatile Polo Cable-Knit Sweater"></div>
-                <div class="info-area"><h3>Executive Cable Sweater</h3><div class="new-p">3,500 ETB</div></div>
+                <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Denim tears Hoodie', 'clothe', 3500)" data-variants='[{"name":"Black","img":"Denim tears Hoodie.jpg"},{"name":"Red","img":"red_denim_tears.jpg"}]'>
                 <div class="img-area"><img src="Denim tears Hoodie.jpg" alt="Denim tears Hoodie"></div>
-                <div class="info-area"><h3>Luxury Street Hoodie</h3><div class="new-p">3,500 ETB</div></div>
+                <div class="info-area"><h3>Denim tears Hoodie</h3><div class="new-p">3,500 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)" data-variants='[{"name":"White","img":"Alo official casual half zip sweater.jpg"},{"name":"Black","img":"black_alo_half.jpg"}]'>
                 <div class="img-area"><img src="Alo official casual half zip sweater.jpg" alt="Alo official casual half zip sweater"></div>
-                <div class="info-area"><h3>Essential Half-Zip Knit</h3><div class="new-p">3,000 ETB</div></div>
+                <div class="info-area"><h3>Alo official casual half zip sweater</h3><div class="new-p">3,000 ETB</div></div>
             </div>
         </div>
     </div>
 
     <div class="category-section">
-        <div class="category-title">Outerwear & Essentials</div>
+        <div class="category-title">Jackets 🧥</div>
         <div class="scroll-wrapper">
             <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"Brown","img":"Suede vintage jacket.jpg"},{"name":"Black","img":"black_suede.jpg"}]'>
                 <div class="img-area"><img src="Suede vintage jacket.jpg" alt="Suede vintage jacket"></div>
-                <div class="info-area"><h3>Vintage Suede Jacket</h3><div class="new-p">2,800 ETB</div></div>
+                <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">2,800 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)" data-variants='[{"name":"Green","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"Blue","img":"blue_retro.jpg"}]'>
                 <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg" alt="American Retro Stand-Collar Jacket"></div>
-                <div class="info-area"><h3>Heritage Stand-Collar</h3><div class="new-p">3,250 ETB</div></div>
+                <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)" data-variants='[{"name":"Tan","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"Dark Brown","img":"dark_corduroy.jpg"}]'>
                 <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg" alt="Lapel Corduroy Pocket Jacket"></div>
-                <div class="info-area"><h3>Pocket Corduroy Jacket</h3><div class="new-p">3,000 ETB</div></div> 
+                <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div> 
             </div>
         </div>
     </div>
 
     <div class="category-section">
-        <div class="category-title">Tailored Trousers</div>
+        <div class="category-title">Jeans & Pants 👖</div>
         <div class="scroll-wrapper">
             <div class="product-card" onclick="openP('Broken Planet Suede Loose Straight Casual Men’s Pants', 'clothe', 2850)" data-variants='[{"name":"Grey","img":"Broken Planet Suede Loose Straight Casual Men’s Pants.jpg"},{"name":"Black","img":"black_bp_pants.jpg"}]'>
                 <div class="img-area"><img src="Broken Planet Suede Loose Straight Casual Men’s Pants.jpg" alt="Broken Planet Suede Loose Straight Casual Men’s Pants"></div>
-                <div class="info-area"><h3>Suede Straight Trousers</h3><div class="new-p">2,850 ETB</div></div>
+                <div class="info-area"><h3>Broken Planet Suede Pants</h3><div class="new-p">2,850 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)" data-variants='[{"name":"Brown","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"Green","img":"green_bp_fleece.jpg"}]'>
                 <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg" alt="Broken Planet Fleece Sweatpants"></div>
-                <div class="info-area"><h3>Premium Fleece Sweats</h3><div class="new-p">2,500 ETB</div></div>
+                <div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)" data-variants='[{"name":"Grey","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"Black","img":"black_street_sweats.jpg"}]'>
                 <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" alt="Loose Hip-Hop polo Streetwear Sweatpants"></div>
-                <div class="info-area"><h3>Streetwear Elite Sweats</h3><div class="new-p">2,850 ETB</div></div>
+                <div class="info-area"><h3>Polo Streetwear Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Denim tears Sweatpants', 'clothe', 2850)" data-variants='[{"name":"Black","img":"Denim tears Sweatpants.jpg"},{"name":"Red","img":"red_dt_sweats.jpg"}]'>
                 <div class="img-area"><img src="Denim tears Sweatpants.jpg" alt="Denim tears Sweatpants"></div>
-                <div class="info-area"><h3>Denim Archive Sweats</h3><div class="new-p">2,850 ETB</div></div>
+                <div class="info-area"><h3>Denim tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
            </div>
             <div class="product-card" onclick="openP('Cross Pattern Curved-Leg Fleece Sweatpants', 'clothe', 3500)" data-variants='[{"name":"Black","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"White","img":"white_cross_pants.jpg"}]'>
                 <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" alt="Cross Pattern Curved-Leg Fleece Sweatpants"></div>
-                <div class="info-area"><h3>Curved-Leg Cross Fleece</h3><div class="new-p">3,500 ETB</div></div>
+                <div class="info-area"><h3>Cross Pattern Curved-Leg Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
             </div>
         </div>
     </div>
 
     <div class="category-section">
-        <div class="category-title">Complete Ensembles</div>
+        <div class="category-title">Full Outfits 👔</div>
         <div class="scroll-wrapper">
             <div class="product-card" onclick="openP('Essentials-Style Tracksuit', 'clothe', 6000)">
                 <div class="img-area"><img src="Essentials-Style Tracksuit.jpg" alt="Essentials-Style Tracksuit"></div>
-                <div class="info-area"><h3>Modern Essential Set</h3><div class="new-p">7,000 ETB</div></div>
+                <div class="info-area"><h3>Essentials-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)">
                 <div class="img-area"><img src="Denim tears-Style tracksuit .jpg" alt="Denim tears-Style tracksuit"></div>
-                <div class="info-area"><h3>Archive Concept Set</h3><div class="new-p">7,000 ETB</div></div>
+                <div class="info-area"><h3>Denim tears-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit', 'clothe', 7000)">
                 <div class="img-area"><img src="Chrome Hearts-Style Tracksuit .jpg" alt="Chrome Hearts-Style Tracksuit"></div>
-                <div class="info-area"><h3>Luxe Chrome Set</h3><div class="new-p">7,000 ETB</div></div>
+                <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
             </div>
         </div>
     </div>
 </main>
 
-<div id="cart-btn" class="cart-float" onclick="showCart()">👜<span id="cart-count" class="cart-count">0</span></div>
+<div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
 <a href="https://t.me/OUMER_FETE" class="tg-float" target="_blank">📲</a>
 
 <div id="pModal" class="modal">
     <div class="modal-content">
-        <img id="modal-img" alt="Product View" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
-        <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product Detail</h2>
+        <img id="modal-img" alt="Product Image" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
+        <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product</h2>
         
         <span id="m-price" class="modal-price">0 ETB</span>
         
         <div id="variant-area" class="variant-section">
-            <span class="variant-label">Curated Selection</span>
+            <span class="variant-label">Select Color/Style</span>
             <div id="variant-list" class="variant-scroll"></div>
         </div>
 
-        <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE GUIDE</label>
+        <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
         <select id="size-box" class="order-input"></select>
-        <button class="btn" onclick="addToCart()">Add to Shopping Bag</button>
-        <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Return to Gallery</button>
+        <button class="btn" onclick="addToCart()">Add to Bag</button>
+        <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
     </div>
 </div>
 
 <div id="cartModal" class="modal">
     <div class="modal-content">
-        <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Selection 👜</h2>
+        <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
         <div id="cart-items-list" style="margin-bottom: 15px;"></div>
         <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px;">
-            Total Investment: <span id="cart-total">0</span> ETB
+            Total: <span id="cart-total">0</span> ETB
         </div>
-        <input type="text" id="custName" placeholder="Recipient Name" class="order-input">
-        <input type="tel" id="custPhone" placeholder="Contact Number" class="order-input">
-        <input type="text" id="custAddress" placeholder="Destination Address" class="order-input">
+        <input type="text" id="custName" placeholder="Full Name" class="order-input">
+        <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
+        <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
         <div class="payment-info">
-            <strong style="color: #0088cc;">Private Secure Payment:</strong><br>
+            <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
             📞 0939620004 | 0940028820<br>
-            <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Market rates apply. Final verification will be handled via personal concierge on Telegram.</span>
+            <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Prices may change slightly depending on supplier stock. We'll confirm the final price on Telegram.</span>
         </div>
-        <button id="checkout-btn" class="btn" onclick="submitOrder()">Finalize Purchase</button>
-        <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Continue Browsing</button>
+        <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm Order</button>
+        <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
     </div>
 </div>
 
 <div id="successModal" class="modal">
     <div class="modal-content" style="text-align: center;">
-        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); ">Order Confirmed✨</h2>
-        <p>Thank you for choosing OUMRAN. We are preparing your selection. Connect with our concierge on Telegram to finalize the details.</p>
-        <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Join Our Telegram</button>
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); ">Order Received!✨</h2>
+        <p>Thank you for shopping with OUMRAN STORE! For more information and payment screenshot we will direct you to our Telegram channel.</p>
+        <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Open Telegram</button>
     </div>
 </div>
 
@@ -377,7 +386,7 @@ document.body.classList.add('loading');
 
 window.addEventListener('load', () => {
     window.scrollTo(0, 0);
-    loadCart(); 
+    loadCart(); // <--- NEW: Loads cart when page opens
     setTimeout(() => {
         document.getElementById('splash-screen').classList.add('splash-exit');
         document.documentElement.classList.remove('loading');
@@ -407,15 +416,21 @@ function filterProducts() {
 function openP(n, t, price) {
     currentP = n; currentPrice = price;
     document.getElementById("m-name").innerText = n;
+    
+    // UPDATER LOGIC FOR MODAL PRICE
     document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
+    
     const clickedCard = event.currentTarget;
     const defaultImg = clickedCard.querySelector('img').src;
     document.getElementById("modal-img").src = defaultImg;
+    
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
+
     const variantArea = document.getElementById("variant-area");
     const variantList = document.getElementById("variant-list");
     variantList.innerHTML = "";
+    
     const variantsData = clickedCard.getAttribute('data-variants');
     if(variantsData) {
         variantArea.style.display = "block";
@@ -428,6 +443,7 @@ function openP(n, t, price) {
                 document.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active'));
                 this.classList.add('active');
             };
+            
             let nameHtml = (v.name && v.name.trim() !== "") ? `<span>${v.name}</span>` : "";
             item.innerHTML = `<img src="${v.img}">${nameHtml}`;
             variantList.appendChild(item);
@@ -435,6 +451,7 @@ function openP(n, t, price) {
     } else {
         variantArea.style.display = "none";
     }
+
     let b = document.getElementById("size-box"); b.innerHTML = "";
     (sz[t] || sz.acc).forEach(s => { 
         let o = document.createElement("option"); o.text = s; b.add(o); 
@@ -446,11 +463,12 @@ function addToCart() {
     let selectedColor = "";
     const activeVariant = document.querySelector('.variant-item.active span');
     if(activeVariant) selectedColor = ` [${activeVariant.innerText}]`;
+
     cart.push({ name: currentP + selectedColor, size: document.getElementById("size-box").value, price: currentPrice });
     updateCartDisplay(); closeModal();
     const toast = document.getElementById("added-toast");
     const tText = document.getElementById("toast-text");
-    tText.innerHTML = `<strong>${currentP}</strong> Reserved`;
+    tText.innerHTML = `<strong>${currentP}</strong> Added`;
     toast.classList.add("show");
     setTimeout(() => { 
         toast.classList.remove("show");
@@ -461,12 +479,13 @@ function addToCart() {
 function updateCartDisplay() {
     document.getElementById("cart-count").innerText = cart.length;
     document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
-    saveCart();
+    saveCart(); // <--- NEW: Saves cart every time it updates
 }
 
 function showCart() {
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
+
     let total = 0;
     const list = document.getElementById("cart-items-list");
     list.innerHTML = cart.map((item, i) => {
@@ -491,11 +510,13 @@ function submitOrder() {
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const address = document.getElementById('custAddress').value || "No address provided";
-    if(!name || !phone) { alert("Please provide valid contact information."); return; }
+    if(!name || !phone) { alert("Please enter Name, Address and phone number!"); return; }
+    
     const botToken = "8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc";
     const chatId = "5715582254";
     let itemsStr = cart.map(i => `▫️ ${i.name} (${i.size}) - ${i.price} ETB`).join("\n");
-    let text = `🛍️ *EXCLUSIVE ORDER*\n👤 Client: ${name}\n📞 Contact: ${phone}\n📍 Address: ${address}\n\n📦 *Manifest:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
+    let text = `🛍️ *NEW ORDER*\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
+    
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -504,7 +525,7 @@ function submitOrder() {
         document.getElementById("cartModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
         cart = []; 
-        localStorage.removeItem('oumer_cart');
+        localStorage.removeItem('oumer_cart'); // Clear storage after order
         updateCartDisplay();
     });
 }
@@ -524,6 +545,8 @@ function closeCart() {
 window.onclick = function(event) {
     if (event.target.classList.contains('modal')) { closeModal(); closeCart(); }
 }
+
+// --- PERSISTENT CART LOGIC ---
 
 function saveCart() {
     localStorage.setItem('oumer_cart', JSON.stringify(cart));
