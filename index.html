@@ -21,43 +21,45 @@
             overflow: hidden !important; 
         }
 
+        /* --- UPDATED LUXURY METALLIC SPLASH --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; display: flex; flex-direction: column;
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%); 
+            display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 10000;
-            transition: opacity 0.8s ease-out, visibility 0.8s;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
         }
-        .splash-content { text-align: center; }
+        .splash-content { text-align: center; perspective: 1000px; }
         .welcome-msg { 
-            font-size: 12px; color: #888; letter-spacing: 6px; 
-            text-transform: uppercase; margin-bottom: 15px;
-            opacity: 0; animation: fadeInSplash 0.8s ease forwards;
+            font-size: 10px; color: #666; letter-spacing: 8px; 
+            text-transform: uppercase; margin-bottom: 10px;
+            opacity: 0; animation: luxuryFadeDown 1s ease forwards;
         }
         .splash-logo { 
-            font-family: 'Playfair Display', serif; font-size: 38px; 
-            letter-spacing: 10px; font-weight: 700; font-style: italic;
-            text-transform: uppercase; line-height: 1.1; margin-bottom: 20px;
-            background: linear-gradient(90deg, #816604 0%, #FFD700 50%, #816604 100%);
+            font-family: 'Playfair Display', serif; font-size: 42px; 
+            letter-spacing: 12px; font-weight: 700; font-style: italic;
+            text-transform: uppercase; line-height: 1.1; margin-bottom: 25px;
+            background: linear-gradient(to right, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fcf6ba 75%, #bf953f 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             opacity: 0;
-            animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
-            animation-delay: 0.4s, 0s;
+            filter: drop-shadow(0 0 15px rgba(184, 134, 11, 0.2));
+            animation: luxuryZoom 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards, shineSweep 4s linear infinite;
+            animation-delay: 0.3s, 0s;
         }
         .splash-slogan {
-            font-size: 11px; color: var(--gold); 
-            letter-spacing: 3px; text-transform: uppercase; font-weight: 400;
-            opacity: 0; animation: fadeInSplash 1s ease forwards; animation-delay: 1s;
+            font-size: 10px; color: #bf953f; 
+            letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
+            opacity: 0; animation: luxuryFadeUp 1.2s ease forwards; animation-delay: 1.2s;
         }
-        
         .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        @keyframes fadeInSplash { 
-            from { opacity: 0; transform: translateY(10px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-        @keyframes shine { to { background-position: 200% center; } }
+        @keyframes luxuryFadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes luxuryFadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes luxuryZoom { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes shineSweep { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+        /* --- END SPLASH UPDATE --- */
 
         #added-toast {
             position: fixed; top: 20px; right: -400px; 
@@ -94,7 +96,6 @@
         .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
         .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
         
-        /* VARIANT SCROLL STYLES - UPDATED FOR NO NAMES */
         .variant-section { margin-bottom: 15px; }
         .variant-label { font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; margin-bottom: 8px; display: block; }
         .variant-scroll { 
@@ -145,7 +146,6 @@
             overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.5);
             transition: transform 0.3s ease; cursor:pointer;
         }
-        /* INTACT RATIO FIX */
         .img-area { height: 220px; background: #f9f9f9; overflow: hidden; }
         .img-area img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
         
@@ -163,22 +163,15 @@
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
         .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
-        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: 
-              /* SCREEN FIT UPDATER FOR MOBILE (WIDER BOX) */
+        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
+
         @media (max-width: 767px) {
-            /* Width changed from 90% to 95%, margin from 10px to 8px */
             .modal-content { margin: 9px auto; width: 93%; padding: 15px; } 
-            
-            #modal-img { 
-                max-height: 250px !important; 
-                object-fit: contain !important; 
-                margin-bottom: 10px !important; 
-            }
+            #modal-img { max-height: 250px !important; object-fit: contain !important; margin-bottom: 10px !important; }
             .modal-price { font-size: 18px; margin: 5px 0; }
             .variant-section { margin-bottom: 10px; }
             .btn { padding: 14px; margin-top: 10px; }
-
-            }
+        }
     </style>
 </head>
 <body class="loading">
@@ -331,14 +324,11 @@
     <div class="modal-content">
         <img id="modal-img" alt="Product Image" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
         <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product</h2>
-        
         <span id="m-price" class="modal-price">0 ETB</span>
-        
         <div id="variant-area" class="variant-section">
             <span class="variant-label">Select Color/Style</span>
             <div id="variant-list" class="variant-scroll"></div>
         </div>
-
         <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
         <select id="size-box" class="order-input"></select>
         <button class="btn" onclick="addToCart()">Add to Bag</button>
@@ -385,7 +375,7 @@ document.body.classList.add('loading');
 
 window.addEventListener('load', () => {
     window.scrollTo(0, 0);
-    loadCart(); // <--- NEW: Loads cart when page opens
+    loadCart(); 
     setTimeout(() => {
         document.getElementById('splash-screen').classList.add('splash-exit');
         document.documentElement.classList.remove('loading');
@@ -415,21 +405,15 @@ function filterProducts() {
 function openP(n, t, price) {
     currentP = n; currentPrice = price;
     document.getElementById("m-name").innerText = n;
-    
-    // UPDATER LOGIC FOR MODAL PRICE
     document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
-    
     const clickedCard = event.currentTarget;
     const defaultImg = clickedCard.querySelector('img').src;
     document.getElementById("modal-img").src = defaultImg;
-    
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
-
     const variantArea = document.getElementById("variant-area");
     const variantList = document.getElementById("variant-list");
     variantList.innerHTML = "";
-    
     const variantsData = clickedCard.getAttribute('data-variants');
     if(variantsData) {
         variantArea.style.display = "block";
@@ -442,19 +426,13 @@ function openP(n, t, price) {
                 document.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active'));
                 this.classList.add('active');
             };
-            
             let nameHtml = (v.name && v.name.trim() !== "") ? `<span>${v.name}</span>` : "";
             item.innerHTML = `<img src="${v.img}">${nameHtml}`;
             variantList.appendChild(item);
         });
-    } else {
-        variantArea.style.display = "none";
-    }
-
+    } else { variantArea.style.display = "none"; }
     let b = document.getElementById("size-box"); b.innerHTML = "";
-    (sz[t] || sz.acc).forEach(s => { 
-        let o = document.createElement("option"); o.text = s; b.add(o); 
-    });
+    (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
     document.getElementById("pModal").style.display = "block";
 }
 
@@ -462,39 +440,29 @@ function addToCart() {
     let selectedColor = "";
     const activeVariant = document.querySelector('.variant-item.active span');
     if(activeVariant) selectedColor = ` [${activeVariant.innerText}]`;
-
     cart.push({ name: currentP + selectedColor, size: document.getElementById("size-box").value, price: currentPrice });
     updateCartDisplay(); closeModal();
     const toast = document.getElementById("added-toast");
     const tText = document.getElementById("toast-text");
     tText.innerHTML = `<strong>${currentP}</strong> Added`;
     toast.classList.add("show");
-    setTimeout(() => { 
-        toast.classList.remove("show");
-        setTimeout(() => { tText.innerHTML = ""; }, 500);
-    }, 2800);
+    setTimeout(() => { toast.classList.remove("show"); }, 2800);
 }
 
 function updateCartDisplay() {
     document.getElementById("cart-count").innerText = cart.length;
     document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
-    saveCart(); // <--- NEW: Saves cart every time it updates
+    saveCart();
 }
 
 function showCart() {
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
-
     let total = 0;
     const list = document.getElementById("cart-items-list");
     list.innerHTML = cart.map((item, i) => {
         total += item.price;
-        return `
-            <div class="cart-item">
-                <span><strong>${item.name}</strong> (${item.size})<br>
-                <span style="color:var(--gold);">${item.price.toLocaleString()} ETB</span></span>
-                <button class="remove-btn" onclick="removeItem(${i})">REMOVE</button>
-            </div>`;
+        return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br><span style="color:var(--gold);">${item.price.toLocaleString()} ETB</span></span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;
     }).join("");
     document.getElementById("cart-total").innerText = total.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
@@ -509,13 +477,11 @@ function submitOrder() {
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const address = document.getElementById('custAddress').value || "No address provided";
-    if(!name || !phone) { alert("Please enter Name, Address and phone number!"); return; }
-    
+    if(!name || !phone) { alert("Please enter Name and phone number!"); return; }
     const botToken = "8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc";
     const chatId = "5715582254";
     let itemsStr = cart.map(i => `▫️ ${i.name} (${i.size}) - ${i.price} ETB`).join("\n");
     let text = `🛍️ *NEW ORDER*\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
-    
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -523,9 +489,7 @@ function submitOrder() {
     }).then(() => {
         document.getElementById("cartModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
-        cart = []; 
-        localStorage.removeItem('oumer_cart'); // Clear storage after order
-        updateCartDisplay();
+        cart = []; localStorage.removeItem('oumer_cart'); updateCartDisplay();
     });
 }
 
@@ -541,23 +505,9 @@ function closeCart() {
     document.getElementById("cartModal").style.display = "none"; 
 }
 
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) { closeModal(); closeCart(); }
-}
-
-// --- PERSISTENT CART LOGIC ---
-
-function saveCart() {
-    localStorage.setItem('oumer_cart', JSON.stringify(cart));
-}
-
-function loadCart() {
-    const savedCart = localStorage.getItem('oumer_cart');
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
-        updateCartDisplay();
-    }
-}
+window.onclick = function(event) { if (event.target.classList.contains('modal')) { closeModal(); closeCart(); } }
+function saveCart() { localStorage.setItem('oumer_cart', JSON.stringify(cart)); }
+function loadCart() { const savedCart = localStorage.getItem('oumer_cart'); if (savedCart) { cart = JSON.parse(savedCart); updateCartDisplay(); } }
 </script>
 </body>
 </html>
