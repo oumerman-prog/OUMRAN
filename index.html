@@ -163,14 +163,12 @@
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
         .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
-        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
-        
-        /* PRICE UPDATER DISPLAY */
-        .modal-price { font-size: 22px; font-weight: 900; color: var(--gold); margin: 10px 0; display: block; }
-
-        /* SCREEN FIT UPDATER FOR MOBILE */
+        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: 
+              /* SCREEN FIT UPDATER FOR MOBILE (WIDER BOX) */
         @media (max-width: 767px) {
-            .modal-content { margin: 10px auto; width: 90%; padding: 15px; }
+            /* Width changed from 90% to 95%, margin from 10px to 8px */
+            .modal-content { margin: 8px auto; width: 95%; padding: 15px; } 
+            
             #modal-img { 
                 max-height: 250px !important; 
                 object-fit: contain !important; 
@@ -179,7 +177,8 @@
             .modal-price { font-size: 18px; margin: 5px 0; }
             .variant-section { margin-bottom: 10px; }
             .btn { padding: 14px; margin-top: 10px; }
-        }
+
+            }
     </style>
 </head>
 <body class="loading">
