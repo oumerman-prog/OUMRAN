@@ -167,8 +167,27 @@
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
         
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; }
-        .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; position: relative; }
+        /* UPDATED: Removed background from modal content but kept it for lower controls */
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; }
+        
+        .modal-content { 
+            background: transparent; /* Makes the product area transparent */
+            color: white; 
+            margin: 20px auto; 
+            width: 85%; 
+            max-width: 380px; 
+            position: relative; 
+            border: none;
+        }
+
+        .modal-controls-bg {
+            background: #1a1a1a; /* Keeps the bottom part solid/light black */
+            padding: 20px;
+            border-radius: 25px;
+            border: 1px solid #333;
+            margin-top: 15px;
+        }
+
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
         .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
@@ -176,8 +195,8 @@
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
 
         @media (max-width: 767px) {
-            .modal-content { margin: 9px auto; width: 93%; padding: 15px; } 
-            #modal-img { max-height: 250px !important; object-fit: contain !important; margin-bottom: 10px !important; }
+            .modal-content { margin: 9px auto; width: 93%; padding: 0; } 
+            #modal-img { max-height: 350px !important; object-fit: contain !important; margin-bottom: 5px !important; border-radius: 15px; }
             .modal-price { font-size: 18px; margin: 5px 0; }
             .variant-section { margin-bottom: 10px; }
             .btn { padding: 14px; margin-top: 10px; }
@@ -334,25 +353,27 @@
 
     <div id="pModal" class="modal">
         <div class="modal-content">
-            <img id="modal-img" alt="Product Image" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
-            <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product</h2>
+            <img id="modal-img" alt="Product Image" style="width:100%; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
             
-            <span id="m-price" class="modal-price">0 ETB</span>
-            
-            <div id="variant-area" class="variant-section">
-                <span class="variant-label">Select Color/Style</span>
-                <div id="variant-list" class="variant-scroll"></div>
-            </div>
+            <div class="modal-controls-bg">
+                <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product</h2>
+                <span id="m-price" class="modal-price">0 ETB</span>
+                
+                <div id="variant-area" class="variant-section">
+                    <span class="variant-label">Select Color/Style</span>
+                    <div id="variant-list" class="variant-scroll"></div>
+                </div>
 
-            <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
-            <select id="size-box" class="order-input"></select>
-            <button class="btn" onclick="addToCart()">Add to Bag</button>
-            <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
+                <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
+                <select id="size-box" class="order-input"></select>
+                <button class="btn" onclick="addToCart()">Add to Bag</button>
+                <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
+            </div>
         </div>
     </div>
 
     <div id="cartModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="background: #1a1a1a; padding: 25px; border-radius: 25px; border: 1px solid #333;">
             <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
             <div id="cart-items-list" style="margin-bottom: 15px;"></div>
             <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px;">
@@ -361,196 +382,4 @@
             <input type="text" id="custName" placeholder="Full Name" class="order-input">
             <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
             <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
-            <div class="payment-info">
-                <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
-                📞 0939620004 | 0940028820<br>
-                <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Prices may change slightly depending on supplier stock. We'll confirm the final price on Telegram.</span>
-            </div>
-            <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm Order</button>
-            <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
-        </div>
-    </div>
-
-    <div id="successModal" class="modal">
-        <div class="modal-content" style="text-align: center;">
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); ">Order Received!✨</h2>
-            <p>Thank you for shopping with OUMRAN STORE! For more information and payment screenshot we will direct you to our Telegram channel.</p>
-            <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Open Telegram</button>
-        </div>
-    </div>
-
-</div> <script>
-let cart = [];
-const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
-let currentP = ""; 
-let currentPrice = 0;
-
-document.documentElement.classList.add('loading');
-document.body.classList.add('loading');
-
-window.addEventListener('load', () => {
-    window.scrollTo(0, 0);
-    loadCart();
-    setTimeout(() => {
-        document.getElementById('splash-screen').classList.add('splash-exit');
-        document.documentElement.classList.remove('loading');
-        document.body.classList.remove('loading');
-    }, 3000); 
-});
-
-function filterProducts() {
-    let input = document.getElementById('search-input').value.toLowerCase();
-    let sections = document.getElementsByClassName('category-section');
-    for (let i = 0; i < sections.length; i++) {
-        let cards = sections[i].getElementsByClassName('product-card');
-        let sectionHasMatch = false;
-        for (let j = 0; j < cards.length; j++) {
-            let productName = cards[j].querySelector('h3').innerText.toLowerCase();
-            if (productName.includes(input)) {
-                cards[j].style.display = "block";
-                sectionHasMatch = true;
-            } else {
-                cards[j].style.display = "none";
-            }
-        }
-        sections[i].style.display = sectionHasMatch ? "block" : "none";
-    }
-}
-
-function openP(n, t, price) {
-    currentP = n; currentPrice = price;
-    document.getElementById("m-name").innerText = n;
-    document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
-    const clickedCard = event.currentTarget;
-    const defaultImg = clickedCard.querySelector('img').src;
-    document.getElementById("modal-img").src = defaultImg;
-    document.documentElement.classList.add('modal-open');
-    document.body.classList.add('modal-open');
-    const variantArea = document.getElementById("variant-area");
-    const variantList = document.getElementById("variant-list");
-    variantList.innerHTML = "";
-    const variantsData = clickedCard.getAttribute('data-variants');
-    if(variantsData) {
-        variantArea.style.display = "block";
-        const variants = JSON.parse(variantsData);
-        variants.forEach((v, idx) => {
-            const item = document.createElement("div");
-            item.className = `variant-item ${idx === 0 ? 'active' : ''}`;
-            item.onclick = function() {
-                document.getElementById("modal-img").src = v.img;
-                document.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active'));
-                this.classList.add('active');
-            };
-            let nameHtml = (v.name && v.name.trim() !== "") ? `<span>${v.name}</span>` : "";
-            item.innerHTML = `<img src="${v.img}">${nameHtml}`;
-            variantList.appendChild(item);
-        });
-    } else {
-        variantArea.style.display = "none";
-    }
-    let b = document.getElementById("size-box"); b.innerHTML = "";
-    (sz[t] || sz.acc).forEach(s => { 
-        let o = document.createElement("option"); o.text = s; b.add(o); 
-    });
-    document.getElementById("pModal").style.display = "block";
-}
-
-function addToCart() {
-    let selectedColor = "";
-    const activeVariant = document.querySelector('.variant-item.active span');
-    if(activeVariant) selectedColor = ` [${activeVariant.innerText}]`;
-    cart.push({ name: currentP + selectedColor, size: document.getElementById("size-box").value, price: currentPrice });
-    updateCartDisplay(); closeModal();
-    const toast = document.getElementById("added-toast");
-    const tText = document.getElementById("toast-text");
-    tText.innerHTML = `<strong>${currentP}</strong> Added`;
-    toast.classList.add("show");
-    setTimeout(() => { 
-        toast.classList.remove("show");
-        setTimeout(() => { tText.innerHTML = ""; }, 500);
-    }, 2800);
-}
-
-function updateCartDisplay() {
-    document.getElementById("cart-count").innerText = cart.length;
-    document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
-    saveCart();
-}
-
-function showCart() {
-    document.documentElement.classList.add('modal-open');
-    document.body.classList.add('modal-open');
-    let total = 0;
-    const list = document.getElementById("cart-items-list");
-    list.innerHTML = cart.map((item, i) => {
-        total += item.price;
-        return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br><span style="color:var(--gold);">${item.price.toLocaleString()} ETB</span></span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;
-    }).join("");
-    document.getElementById("cart-total").innerText = total.toLocaleString();
-    document.getElementById("cartModal").style.display = "block";
-}
-
-function removeItem(index) {
-    cart.splice(index, 1); updateCartDisplay();
-    if(cart.length === 0) closeCart(); else showCart();
-}
-
-function submitOrder() {
-    const name = document.getElementById('custName').value.trim();
-    const phone = document.getElementById('custPhone').value.trim();
-    const address = document.getElementById('custAddress').value.trim();
-    
-    // UPDATED VALIDATION: Requires all three fields
-    if(!name || !phone || !address) { 
-        alert("Please fill in ALL details (Name, Phone, and Delivery Address) first!"); 
-        return; 
-    }
-    
-    const botToken = "8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc";
-    const chatId = "5715582254";
-    let itemsStr = cart.map(i => `▫️ ${i.name} (${i.size}) - ${i.price} ETB`).join("\n");
-    let text = `🛍️ *NEW ORDER*\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
-    
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: "Markdown" })
-    }).then(() => {
-        document.getElementById("cartModal").style.display = "none";
-        document.getElementById("successModal").style.display = "block";
-        cart = []; 
-        localStorage.removeItem('oumer_cart');
-        updateCartDisplay();
-    });
-}
-
-function closeModal() { 
-    document.documentElement.classList.remove('modal-open');
-    document.body.classList.remove('modal-open');
-    document.getElementById("pModal").style.display = "none"; 
-}
-
-function closeCart() { 
-    document.documentElement.classList.remove('modal-open');
-    document.body.classList.remove('modal-open');
-    document.getElementById("cartModal").style.display = "none"; 
-}
-
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) { closeModal(); closeCart(); }
-}
-
-function saveCart() {
-    localStorage.setItem('oumer_cart', JSON.stringify(cart));
-}
-
-function loadCart() {
-    const savedCart = localStorage.getItem('oumer_cart');
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
-        updateCartDisplay();
-    }
-}
-</script>
-</body>
-</html>
+            <div class
