@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OUMRAN STORE | PREMIUM ADDIS ABABA</title>
+    <title>OUMRAN STORE</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         /* ========================================
-        CORE BRAND THEME & VARIABLES
+        OUMRAN STORE - ULTIMATE EDITION
         ========================================
         */
         :root { 
@@ -17,272 +17,205 @@
             --tg: #0088cc; 
             --accent: #ff3b30; 
             --gold: #FFD700; 
-            --gold-glow: rgba(255, 215, 0, 0.3);
+            --gold-glow: rgba(255, 215, 0, 0.4);
             --beige: #d4c5b0;
-            --glass: rgba(0, 0, 0, 0.85);
-            --border: rgba(255, 255, 255, 0.1);
-            --transition-main: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            --glass: rgba(0, 0, 0, 0.9);
+            --border: rgba(255, 255, 255, 0.08);
+            --cubic: cubic-bezier(0.23, 1, 0.32, 1);
         }
         
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
-            margin: 0; 
-            background: var(--bg); 
-            color: white; 
-            overflow-x: hidden; 
-            position: relative; 
-            min-height: 100vh;
+            margin: 0; background: var(--bg); color: white; 
+            overflow-x: hidden; position: relative; min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
 
-        .site-wrapper {
-            width: 100%;
-            max-width: 1400px; 
-            margin: 0 auto;
-            position: relative;
-        }
+        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; }
 
-        /* Prevent scrolling while splash is active */
-        html.loading, body.loading { 
-            overflow: hidden !important; 
-            height: 100% !important; 
-            position: fixed; 
-            width: 100%;
-            touch-action: none; 
-        }
+        /* Prevent scrolling while loading */
+        html.loading, body.loading { overflow: hidden !important; height: 100% !important; position: fixed; width: 100%; }
 
-        html.modal-open, body.modal-open { 
-            overflow: hidden !important; 
-        }
-
-        /* ========================================
-        SCROLL FADE REVEAL SYSTEM
-        ========================================
-        */
+        /* --- 100% POWER ANIMATION SYSTEM --- */
         .reveal {
             opacity: 0;
-            transform: translate3d(0, 50px, 0);
-            transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translate3d(0, 40px, 0) scale(0.98);
+            transition: opacity 1.4s var(--cubic), transform 1.4s var(--cubic);
             will-change: transform, opacity;
         }
         
         .reveal.active {
             opacity: 1;
-            transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0) scale(1);
         }
 
-        /* ========================================
-        10,000% POWER SPLASH SCREEN (NO SHAKE)
-        ========================================
-        */
+        /* --- KINETIC SPLASH SCREEN --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 10000;
-            transition: transform 1.4s cubic-bezier(0.85, 0, 0.15, 1), filter 1.4s ease;
+            transition: transform 1.5s cubic-bezier(0.86, 0, 0.07, 1);
+            will-change: transform;
         }
 
-        .splash-exit { 
-            transform: translate3d(0, -100%, 0);
-            filter: blur(30px);
-            pointer-events: none;
-        }
+        .splash-exit { transform: translate3d(0, -100%, 0); }
 
         .splash-glow {
-            position: absolute; width: 150%; height: 150%;
+            position: absolute; width: 120%; height: 120%;
             background: radial-gradient(circle at center, var(--gold-glow) 0%, transparent 60%);
-            animation: pulseGlow 6s infinite alternate ease-in-out;
-            z-index: 0;
+            animation: pulseGlow 8s infinite alternate ease-in-out;
             pointer-events: none;
         }
 
         @keyframes pulseGlow {
-            0% { transform: scale(1) translate3d(-2%, -2%, 0); opacity: 0.2; }
-            100% { transform: scale(1.4) translate3d(2%, 2%, 0); opacity: 0.6; }
+            0% { transform: scale(1) translate3d(-5%, -5%, 0); opacity: 0.3; }
+            100% { transform: scale(1.3) translate3d(5%, 5%, 0); opacity: 0.7; }
         }
 
-        .splash-content { text-align: center; z-index: 1; perspective: 1500px; }
+        .splash-content { text-align: center; z-index: 1; perspective: 1000px; }
 
         .welcome-msg { 
-            font-size: 11px; color: #fff; letter-spacing: 12px; 
-            text-transform: uppercase; margin-bottom: 25px;
-            opacity: 0; filter: blur(10px);
-            animation: ultimateReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-            animation-delay: 0.6s;
+            font-size: 10px; color: #fff; letter-spacing: 12px; 
+            text-transform: uppercase; margin-bottom: 30px;
+            opacity: 0; filter: blur(15px);
+            animation: msgReveal 2.5s var(--cubic) forwards;
+            animation-delay: 0.5s;
         }
 
         .splash-logo { 
-            font-family: 'Playfair Display', serif; font-size: 72px; 
+            font-family: 'Playfair Display', serif; font-size: 52px; 
             font-weight: 700; font-style: italic;
-            text-transform: uppercase; line-height: 0.85; margin-bottom: 30px;
+            text-transform: uppercase; line-height: 0.9; margin-bottom: 25px;
             background: linear-gradient(90deg, #816604, #FFD700, #fff, #FFD700, #816604);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             opacity: 0; 
-            transform: scale(0.9) translate3d(0, 0, 100px);
-            animation: logoEnter 2.8s cubic-bezier(0.19, 1, 0.22, 1) forwards, shine 5s linear infinite;
-            animation-delay: 1s;
-            /* Hardware Acceleration to stop shaking */
+            transform: translate3d(0, 0, 100px);
+            animation: kineticLogo 3s var(--cubic) forwards, shine 4s linear infinite;
+            animation-delay: 1.2s;
             backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            will-change: transform, opacity;
+            will-change: transform, opacity, letter-spacing;
         }
 
         .splash-slogan {
-            font-size: 12px; color: var(--gold); 
-            letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
-            opacity: 0; 
-            animation: ultimateReveal 1.8s ease forwards; animation-delay: 3s;
+            font-size: 11px; color: var(--gold); 
+            letter-spacing: 4px; text-transform: uppercase;
+            opacity: 0; filter: blur(10px);
+            animation: msgReveal 2s var(--cubic) forwards; 
+            animation-delay: 3s;
         }
 
-        @keyframes ultimateReveal {
-            to { opacity: 1; letter-spacing: 8px; filter: blur(0); }
+        @keyframes msgReveal {
+            to { opacity: 1; filter: blur(0); letter-spacing: 6px; }
         }
 
-        @keyframes logoEnter {
-            0% { opacity: 0; transform: scale(0.9) translate3d(0, 0, 200px); filter: brightness(4) blur(20px); letter-spacing: -5px; }
-            100% { opacity: 1; transform: scale(1) translate3d(0, 0, 0); filter: brightness(1) blur(0); letter-spacing: 6px; }
+        @keyframes kineticLogo {
+            0% { opacity: 0; letter-spacing: -10px; filter: blur(20px); transform: translate3d(0, 20px, 100px); }
+            100% { opacity: 1; letter-spacing: 4px; filter: blur(0); transform: translate3d(0, 0, 0); }
         }
 
         @keyframes shine { to { background-position: 200% center; } }
 
-        /* ========================================
-        HEADER & NAVIGATION
-        ========================================
-        */
+        /* --- HEADER & PROMO --- */
         header { 
-            background: var(--glass); 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 20px; 
-            border-bottom: 1px solid var(--border); 
+            background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            padding: 18px; border-bottom: 1px solid var(--border); 
             position: sticky; top: 0; z-index: 100; text-align: center;
-            width: 100%; box-sizing: border-box;
-            display: flex; justify-content: center; align-items: center;
         }
-        .header-logo { height: 40px; border-radius: 8px; box-shadow: 0 0 15px rgba(255,215,0,0.2); }
-        .brand-name { font-size: 17px; letter-spacing: 3px; font-weight: 900; margin-left: 12px; text-transform: uppercase; }
+        .header-logo { height: 40px; border-radius: 8px; box-shadow: 0 0 20px rgba(255,215,0,0.1); }
+        .brand-name { font-size: 17px; letter-spacing: 3px; font-weight: 900; margin-left: 12px; vertical-align: middle; }
         
         .promo-bar { 
             background: linear-gradient(90deg, #000, #111, #000); 
             color: #fff; font-size: 10px; padding: 14px; 
             font-weight: 900; text-align: center; border-bottom: 1px solid #222;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
-        .search-container { padding: 18px; background: rgba(0,0,0,0.4); }
+        .search-container { padding: 20px; background: rgba(0,0,0,0.3); }
         #search-input { 
-            width: 100%; max-width: 500px; padding: 14px 20px; border-radius: 40px; 
+            width: 100%; max-width: 500px; padding: 15px 25px; border-radius: 40px; 
             border: 1px solid var(--border); 
-            background: rgba(20,20,20,0.8); color: white; font-size: 16px; 
-            box-sizing: border-box; text-align: center; outline: none; transition: var(--transition-main);
+            background: rgba(20,20,20,0.9); color: white; font-size: 16px; 
+            box-sizing: border-box; text-align: center; outline: none; transition: 0.4s;
         }
-        #search-input:focus { border-color: var(--gold); background: #000; box-shadow: 0 0 20px rgba(255,215,0,0.1); }
+        #search-input:focus { border-color: var(--gold); box-shadow: 0 0 20px rgba(255,215,0,0.1); }
 
-        /* ========================================
-        CATEGORY SECTIONS
-        ========================================
-        */
-        .category-section { padding: 40px 0 10px 0; position: relative; z-index: 1; }
+        /* --- CATEGORIES & CARDS --- */
+        .category-section { padding: 40px 0 10px 0; }
         .category-title { 
-            font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic;
-            font-weight: 700; color: var(--gold); margin-bottom: 25px; letter-spacing: 1.5px; text-align: center;
+            font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic;
+            font-weight: 700; color: var(--gold); margin-bottom: 25px; text-align: center;
+            letter-spacing: 1px;
         }
         .scroll-wrapper { 
             display: flex; overflow-x: auto; gap: 20px; 
-            padding: 10px 25px 40px 25px; scrollbar-width: none; 
+            padding: 0 25px 40px 25px; scrollbar-width: none; 
             -webkit-overflow-scrolling: touch;
         }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
         
         .product-card { 
-            flex: 0 0 190px; background: var(--card); border-radius: 18px; color: white; 
+            flex: 0 0 190px; background: var(--card); border-radius: 20px; color: white; 
             overflow: hidden; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            transition: var(--transition-main); cursor:pointer;
-            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.5s var(--cubic); border: 1px solid rgba(255,255,255,0.03);
         }
-        .product-card:hover { transform: translate3d(0, -12px, 0) scale(1.03); border-color: rgba(255,215,0,0.3); }
+        .product-card:hover { transform: translate3d(0, -10px, 0); border-color: var(--gold); }
 
-        .img-area { height: 240px; background: #080808; overflow: hidden; position: relative; }
-        .img-area img { 
-            width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; 
-            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-        .product-card:hover .img-area img { transform: scale(1.12); }
+        .img-area { height: 250px; background: #080808; overflow: hidden; }
+        .img-area img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--cubic); }
+        .product-card:hover .img-area img { transform: scale(1.1); }
         
-        .info-area { padding: 15px; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.4)); }
-        .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); font-weight: 700; height: 32px; overflow: hidden; letter-spacing: 0.6px; text-transform: uppercase; }
-        .new-p { font-weight: 900; font-size: 15px; color: #fff; margin-top: 8px; }
+        .info-area { padding: 15px; }
+        .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); font-weight: 700; height: 32px; overflow: hidden; text-transform: uppercase; letter-spacing: 0.5px; }
+        .new-p { font-weight: 900; font-size: 16px; color: #fff; margin-top: 8px; }
 
-        /* ========================================
-        FLOATING ELEMENTS
-        ========================================
-        */
-        .tg-float { position: fixed; bottom: 25px; right: 25px; background: var(--tg); color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; z-index: 1000; box-shadow: 0 8px 25px rgba(0,0,0,0.4); transition: var(--transition-main); }
-        .tg-float:hover { transform: scale(1.1) rotate(8deg); }
-
-        .cart-float { position: fixed; bottom: 25px; left: 25px; background: white; color: black; width: 65px; height: 65px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 26px; z-index: 1000; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.4); transition: var(--transition-main); }
+        /* --- FLOATING UI --- */
+        .tg-float { position: fixed; bottom: 25px; right: 25px; background: var(--tg); color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; z-index: 1000; box-shadow: 0 8px 25px rgba(0,0,0,0.4); transition: 0.3s var(--cubic); }
+        .tg-float:hover { transform: scale(1.1) rotate(5deg); }
+        .cart-float { position: fixed; bottom: 25px; left: 25px; background: white; color: black; width: 65px; height: 65px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 26px; z-index: 1000; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
         .cart-count { position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 13px; min-width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 900; border: 2px solid #000; }
 
-        /* ========================================
-        MODAL SYSTEM
-        ========================================
-        */
+        /* --- MODALS --- */
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.98); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); overflow-y: auto; }
         .modal-content { 
-            background: #0f0f0f; color: white; margin: 30px auto; padding: 30px; 
-            width: 90%; max-width: 420px; border-radius: 30px; border: 1px solid #222; 
-            position: relative; animation: modalEnter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #111; color: white; margin: 30px auto; padding: 30px; 
+            width: 90%; max-width: 400px; border-radius: 30px; border: 1px solid #222; 
+            animation: modalEnter 0.6s var(--cubic);
         }
-        @keyframes modalEnter { from { opacity: 0; transform: scale(0.8) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes modalEnter { from { opacity: 0; transform: translate3d(0, 50px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
         
-        #modal-img { width:100%; border-radius:20px; margin-bottom:20px; object-fit: cover; aspect-ratio: 1/1; max-height: 450px; border: 1px solid #333; }
-        .btn { width: 100%; padding: 20px; background: #fff; color: #000; border: none; border-radius: 18px; font-weight: 900; margin-top: 15px; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn:active { transform: scale(0.95); }
+        #modal-img { width:100%; border-radius:20px; margin-bottom:20px; object-fit: cover; aspect-ratio: 1/1; border: 1px solid #333; }
+        .btn { width: 100%; padding: 20px; background: #fff; color: #000; border: none; border-radius: 18px; font-weight: 900; margin-top: 15px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        .btn:active { transform: scale(0.96); }
 
-        .order-input, #size-box { width: 100%; padding: 15px; margin-top: 12px; border-radius: 14px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; font-size: 16px; transition: 0.3s; }
-        .order-input:focus { border-color: var(--gold); }
+        .order-input { width: 100%; padding: 15px; margin-top: 12px; border-radius: 15px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
 
-        .variant-section { margin-top: 20px; margin-bottom: 20px; }
-        .variant-label { font-size: 11px; font-weight: 900; color: #777; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 1px; }
-        .variant-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
-        .variant-item { flex: 0 0 75px; height: 75px; border-radius: 12px; border: 2px solid transparent; cursor: pointer; overflow: hidden; transition: 0.3s; background: #111; }
-        .variant-item img { width: 100%; height: 100%; object-fit: cover; }
+        .variant-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; }
+        .variant-item { flex: 0 0 70px; height: 70px; border-radius: 12px; border: 2px solid transparent; cursor: pointer; overflow: hidden; transition: 0.3s; }
         .variant-item.active { border-color: var(--gold); transform: scale(1.05); }
+        .variant-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        .payment-info { background: #1a1a1a; padding: 18px; border-radius: 18px; margin-top: 20px; font-size: 14px; border-left: 5px solid var(--tg); color: #ccc; line-height: 1.6; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #222; }
-        .remove-btn { background: #333; color: #ff3b30; border: none; padding: 8px 12px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; }
-
-        /* ========================================
-        BACKGROUND EFFECT
-        ========================================
-        */
+        /* --- BACKGROUND PARALLAX --- */
         #motion-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("IMG_8765.jpeg"); 
-            background-repeat: no-repeat; background-position: center; 
-            background-size: cover; opacity: 0.9; z-index: -1;
-            filter: brightness(0.5) contrast(1.1); 
+            position: fixed; top: -5%; left: -5%; width: 110%; height: 110%;
+            background-image: url("IMG_8765.jpeg"); background-size: cover; background-position: center;
+            opacity: 0.8; z-index: -1; filter: brightness(0.4) contrast(1.2);
+            will-change: transform;
         }
 
         #added-toast {
-            position: fixed; top: 25px; right: -450px; 
-            visibility: hidden; background: rgba(255, 255, 255, 0.15);
+            position: fixed; top: 25px; right: -400px; background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            color: white; padding: 18px 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.3);
-            z-index: 5000; font-weight: 600; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            color: white; padding: 18px 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2);
+            z-index: 5000; font-weight: 700; transition: 0.6s var(--cubic);
         }
-        #added-toast.show { right: 25px; visibility: visible; }
+        #added-toast.show { right: 25px; }
 
-        /* Desktop Adjustments */
         @media (min-width: 1024px) {
             .product-card { flex: 0 0 280px; }
             .img-area { height: 350px; }
-            .category-title { font-size: 32px; }
-            .brand-name { font-size: 22px; }
-            .header-logo { height: 60px; }
         }
     </style>
 </head>
@@ -298,7 +231,7 @@
 </div>
 
 <div class="site-wrapper">
-    <div id="added-toast"><span id="toast-text"></span></div>
+    <div id="added-toast">ITEM ADDED TO BAG</div>
     <div id="motion-bg"></div>
 
     <header>
@@ -307,26 +240,27 @@
     </header>
 
     <div class="promo-bar">
-        PREMIUM QUALITY VENDOR🇨🇳✈️ | ADDIS ABABA LOCAL DELIVERY✅
+        VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
+        NOT GLOBAL❌ ONLY IN ADDIS ABABA✅
     </div>
 
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Search our premium collection..." onkeyup="filterProducts()">
+        <input type="text" id="search-input" placeholder="Search for your style..." onkeyup="filterProducts()">
     </div>
 
     <main id="store-main">
         <div class="category-section reveal">
             <div class="category-title">Graphic T-Shirts 👕</div>
             <div class="scroll-wrapper"> 
-                <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"name":"Black","img":"Half zipped black t-shirt.jpg"},{"name":"White","img":"White .jpg"}]'>
+                <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"img":"Half zipped black t-shirt.jpg"},{"img":"White .jpg"}]'>
                     <div class="img-area"><img src="Half zipped black t-shirt.jpg"></div>
                     <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">1,800 ETB</div></div> 
                 </div>
-                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)" data-variants='[{"name":"Grey","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"Black","img":"Lapel sweatshirt .jpg"}]'>
+                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)" data-variants='[{"img":"Lapel Short-Sleeved Sweater.jpg"},{"img":"Lapel sweatshirt .jpg"}]'>
                     <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg"></div>
                     <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div> 
                 </div>
-                <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)" data-variants='[{"name":"Variant 1","img":"Strip knit t-shirt.jpg"},{"name":"Variant 2","img":"Striped.jpg"}]'>
+                <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)" data-variants='[{"img":"Strip knit t-shirt.jpg"},{"img":"Striped.jpg"}]'>
                     <div class="img-area"><img src="Strip knit t-shirt.jpg"></div>
                     <div class="info-area"><h3>Strip knit t-shirt</h3><div class="new-p">2,850 ETB</div></div>
                 </div>
@@ -336,55 +270,55 @@
         <div class="category-section reveal">
             <div class="category-title">Hoodies & Sweaters 🧶</div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"name":"A","img":"Polo knit sweater.jpg"},{"name":"B","img":"Knit polo.jpg"}]'>
+                <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"img":"Polo knit sweater.jpg"},{"img":"Knit polo.jpg"}]'>
                     <div class="img-area"><img src="Polo knit sweater.jpg"></div>
                     <div class="info-area"><h3>Polo knit sweater</h3><div class="new-p">2,500 ETB</div></div>
                 </div>
-                <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)" data-variants='[{"name":"A","img":"Half-Zip Sweater.jpg"},{"name":"B","img":"Half zip.jpg"}]'>
+                <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)" data-variants='[{"img":"Half-Zip Sweater.jpg"},{"img":"Half zip.jpg"}]'>
                     <div class="img-area"><img src="Half-Zip Sweater.jpg"></div>
                     <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
                 </div>
-                <div class="product-card" onclick="openP('Polo cable knit collar soft sweater', 'clothe', 3000)" data-variants='[{"name":"A","img":"Polo cable knit collar soft sweater.jpg"},{"name":"B","img":"Sweaterr .jpg"}]'>
+                <div class="product-card" onclick="openP('Polo cable knit collar soft sweater', 'clothe', 3000)" data-variants='[{"img":"Polo cable knit collar soft sweater.jpg"},{"img":"Sweaterr .jpg"}]'>
                     <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg"></div>
-                    <div class="info-area"><h3>Polo cable knit collar sweater</h3><div class="new-p">3,000 ETB</div></div>
+                    <div class="info-area"><h3>Polo cable knit collar soft sweater</h3><div class="new-p">3,000 ETB</div></div>
                 </div>
                 <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)">
                     <div class="img-area"><img src="Alo official casual half zip sweater.jpg"></div>
-                    <div class="info-area"><h3>Alo casual half zip</h3><div class="new-p">3,000 ETB</div></div>
+                    <div class="info-area"><h3>Alo official casual half zip sweater</h3><div class="new-p">3,000 ETB</div></div>
                 </div>
             </div>
         </div>
 
         <div class="category-section reveal">
-            <div class="category-title">Premium Jackets 🧥</div>
+            <div class="category-title">Jackets 🧥</div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"Brown","img":"Suede vintage jacket.jpg"}]'>
+                <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)">
                     <div class="img-area"><img src="Suede vintage jacket.jpg"></div>
                     <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">2,800 ETB</div></div>
                 </div>
-                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)" data-variants='[{"name":"Standard","img":"American Retro Stand-Collar Jacket.jpg"}]'>
+                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)">
                     <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg"></div>
-                    <div class="info-area"><h3>American Retro Jacket</h3><div class="new-p">3,250 ETB</div></div>
+                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
                 </div>
                 <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)">
                     <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg"></div>
-                    <div class="info-area"><h3>Lapel Corduroy Jacket</h3><div class="new-p">3,000 ETB</div></div>
+                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div>
                 </div>
             </div>
         </div>
 
         <div class="category-section reveal">
-            <div class="category-title">Denim & Street Pants 👖</div>
+            <div class="category-title">Jeans & Pants 👖</div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Broken Planet Suede Pants', 'clothe', 2850)" data-variants='[{"name":"Grey","img":"Broken Planet Suede Loose Straight Casual Men’s Pants.jpg"}]'>
+                <div class="product-card" onclick="openP('Broken Planet Suede Loose Straight Casual Men’s Pants', 'clothe', 2850)">
                     <div class="img-area"><img src="Broken Planet Suede Loose Straight Casual Men’s Pants.jpg"></div>
                     <div class="info-area"><h3>Broken Planet Suede Pants</h3><div class="new-p">2,850 ETB</div></div>
                 </div>
-                <div class="product-card" onclick="openP('Denim tears Sweatpants', 'clothe', 2850)" data-variants='[{"name":"Black","img":"Denim tears Sweatpants.jpg"}]'>
+                <div class="product-card" onclick="openP('Denim tears Sweatpants', 'clothe', 2850)">
                     <div class="img-area"><img src="Denim tears Sweatpants.jpg"></div>
                     <div class="info-area"><h3>Denim tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
                 </div>
-                <div class="product-card" onclick="openP('Cross Pattern curved-leg pants', 'clothe', 3500)">
+                <div class="product-card" onclick="openP('Cross Pattern Curved-Leg Fleece Sweatpants', 'clothe', 3500)">
                     <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg"></div>
                     <div class="info-area"><h3>Cross Pattern Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
                 </div>
@@ -392,19 +326,19 @@
         </div>
 
         <div class="category-section reveal">
-            <div class="category-title">Luxury Tracksuits 👔</div>
+            <div class="category-title">Full Outfits 👔</div>
             <div class="scroll-wrapper">
                 <div class="product-card" onclick="openP('Essentials-Style Tracksuit', 'clothe', 6000)">
                     <div class="img-area"><img src="Essentials-Style Tracksuit.jpg"></div>
-                    <div class="info-area"><h3>Essentials Tracksuit</h3><div class="new-p">6,000 ETB</div></div>
+                    <div class="info-area"><h3>Essentials-Style Tracksuit</h3><div class="new-p">6,000 ETB</div></div>
                 </div>
                 <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)">
                     <div class="img-area"><img src="Denim tears-Style tracksuit .jpg"></div>
-                    <div class="info-area"><h3>Denim tears Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    <div class="info-area"><h3>Denim tears-Style tracksuit</h3><div class="new-p">7,000 ETB</div></div>
                 </div>
-                <div class="product-card" onclick="openP('Chrome Hearts Tracksuit', 'clothe', 7000)">
+                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit', 'clothe', 7000)">
                     <div class="img-area"><img src="Chrome Hearts-Style Tracksuit .jpg"></div>
-                    <div class="info-area"><h3>Chrome Hearts Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
                 </div>
             </div>
         </div>
@@ -415,16 +349,16 @@
 
     <div id="pModal" class="modal">
         <div class="modal-content">
-            <img id="modal-img" src="" alt="Product Detail">
-            <h2 id="m-name" style="margin:0; font-family: 'Playfair Display', serif; color: #fff;">Product Name</h2>
-            <div id="m-price" style="color:var(--gold); font-weight:900; font-size:22px; margin: 10px 0;">0 ETB</div>
+            <img id="modal-img" src="">
+            <h2 id="m-name" style="margin:0; font-family: 'Playfair Display', serif;">Product</h2>
+            <div id="m-price" style="color:var(--gold); font-weight:900; font-size:22px; margin: 5px 0;">0 ETB</div>
             
-            <div id="variant-area" class="variant-section">
-                <span class="variant-label">Choose Style</span>
+            <div id="variant-area" style="margin-top:20px; display:none;">
+                <span style="font-size:11px; font-weight:900; color:#666; text-transform:uppercase; letter-spacing:1px;">Available Styles</span>
                 <div id="variant-list" class="variant-scroll"></div>
             </div>
 
-            <label class="variant-label">Select Size</label>
+            <label style="font-size:11px; font-weight:900; color:#666; text-transform:uppercase; display:block; margin-top:15px;">Size Selection</label>
             <select id="size-box" class="order-input"></select>
             
             <button class="btn" onclick="addToCart()">Add to Shopping Bag</button>
@@ -434,274 +368,162 @@
 
     <div id="cartModal" class="modal">
         <div class="modal-content">
-            <h2 style="margin:0; font-family: 'Playfair Display', serif; border-bottom: 1px solid #222; padding-bottom: 15px;">Your Selections 🛍️</h2>
-            <div id="cart-items-list" style="max-height: 300px; overflow-y: auto;"></div>
+            <h2 style="margin:0; font-family: 'Playfair Display', serif;">My Bag 🛍️</h2>
+            <div id="cart-items-list" style="margin-top:15px;"></div>
             
             <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:20px; text-align:right; font-size: 20px;">
-                Subtotal: <span id="cart-total">0</span> ETB
+                Total: <span id="cart-total">0</span> ETB
             </div>
 
-            <div style="margin-top: 20px;">
-                <input type="text" id="custName" placeholder="Full Name" class="order-input">
-                <input type="tel" id="custPhone" placeholder="Mobile Number" class="order-input">
-                <input type="text" id="custAddress" placeholder="Delivery Area / Landmark" class="order-input">
+            <input type="text" id="custName" placeholder="Full Name" class="order-input">
+            <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
+            <input type="text" id="custAddress" placeholder="Delivery Landmark" class="order-input">
+
+            <div style="background:#1a1a1a; padding:15px; border-radius:15px; margin-top:15px; font-size:13px; color:#aaa; border-left:4px solid var(--tg);">
+                <strong>Telebirr Transfer:</strong><br>
+                0939620004 | 0940028820
             </div>
 
-            <div class="payment-info">
-                <strong>Official Telebirr Transfer:</strong><br>
-                📞 0939620004 | 0940028820<br>
-                <small>Send screenshot via Telegram after ordering.</small>
-            </div>
-
-            <button class="btn" onclick="submitOrder()" style="background: var(--gold); color: #000;">Confirm & Checkout</button>
-            <button class="btn" style="background:#111; color:#fff; border: 1px solid #333;" onclick="closeCart()">Return to Store</button>
+            <button class="btn" onclick="submitOrder()" style="background:var(--gold);">Checkout via Telegram</button>
+            <button class="btn" style="background:#111; color:#fff;" onclick="closeCart()">Return</button>
         </div>
     </div>
 
     <div id="successModal" class="modal">
-        <div class="modal-content" style="text-align: center; border-color: var(--gold);">
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">Order Initialized! ✨</h2>
-            <p style="line-height: 1.6; color: #ccc;">Your order has been sent to our system. We are now redirecting you to Telegram to finalize the delivery details.</p>
-            <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Continue to Telegram</button>
+        <div class="modal-content" style="text-align: center;">
+            <h2 style="color:var(--gold); font-family: 'Playfair Display', serif;">Order Logged!</h2>
+            <p style="color:#ccc;">Opening Telegram to finalize...</p>
+            <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Message Us Now</button>
         </div>
     </div>
 </div>
 
 <script>
-/* ========================================
-STORE CORE LOGIC
-========================================
-*/
 let cart = [];
-const sizeGroups = { 
-    clothe: ["Medium (M)", "Large (L)", "XL", "XXL"], 
-    shoes: ["40", "41", "42", "43", "44", "45"], 
-    acc: ["One Size"] 
-};
-let activeProduct = { name: "", price: 0 };
+const sz = { clothe: ["M", "L", "XL", "XXL"], acc: ["Standard"] };
+let curP = "", curPr = 0;
 
-// 1. SCROLL REVEAL INITIALIZATION
-const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-const revealObserver = new IntersectionObserver((entries) => {
+// 1. ULTIMATE ANIMATION OBSERVER
+const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
         }
     });
-}, observerOptions);
+}, { threshold: 0.1 });
 
-// 2. LIFECYCLE HOOKS
+// 2. PARALLAX EFFECT
+window.addEventListener('scroll', () => {
+    const bg = document.getElementById('motion-bg');
+    let offset = window.pageYOffset;
+    bg.style.transform = `translate3d(0, ${offset * 0.4}px, 0)`;
+});
+
+// 3. LIFECYCLE
 window.addEventListener('load', () => {
-    // Scroll to top on fresh load
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    loadCartData();
-    
-    // Initialize Scroll Animations
-    const elementsToReveal = document.querySelectorAll('.reveal');
-    elementsToReveal.forEach(el => revealObserver.observe(el));
-
-    // Power Splash Sequence
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         splash.classList.add('splash-exit');
-        document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
-        
-        // Final cleanup of splash after transition
-        setTimeout(() => { splash.style.display = 'none'; }, 1500);
-    }, 5500); 
+        document.documentElement.classList.remove('loading');
+    }, 5500);
 });
 
-// 3. SEARCH ENGINE
+// 4. CORE FUNCTIONS
 function filterProducts() {
-    const query = document.getElementById('search-input').value.toLowerCase();
-    const sections = document.querySelectorAll('.category-section');
-    
-    sections.forEach(section => {
-        const cards = section.querySelectorAll('.product-card');
-        let hasMatch = false;
-        
-        cards.forEach(card => {
-            const productName = card.querySelector('h3').textContent.toLowerCase();
-            if (productName.includes(query)) {
-                card.style.display = "block";
-                hasMatch = true;
-            } else {
-                card.style.display = "none";
-            }
-        });
-        
-        section.style.display = hasMatch ? "block" : "none";
+    let q = document.getElementById('search-input').value.toLowerCase();
+    document.querySelectorAll('.product-card').forEach(card => {
+        let n = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = n.includes(q) ? "block" : "none";
     });
 }
 
-// 4. PRODUCT MODAL LOGIC
-function openP(name, type, price) {
-    activeProduct = { name, price };
-    const modal = document.getElementById("pModal");
+function openP(n, t, p) {
+    curP = n; curPr = p;
+    document.getElementById("m-name").innerText = n;
+    document.getElementById("m-price").innerText = p.toLocaleString() + " ETB";
     const card = event.currentTarget;
-    
-    document.getElementById("m-name").innerText = name;
-    document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
     document.getElementById("modal-img").src = card.querySelector('img').src;
     
-    // Manage Variants
-    const vList = document.getElementById("variant-list");
+    let vData = card.getAttribute('data-variants');
+    let vArea = document.getElementById("variant-area");
+    let vList = document.getElementById("variant-list");
     vList.innerHTML = "";
-    const vData = card.getAttribute('data-variants');
-    
     if(vData) {
-        document.getElementById("variant-area").style.display = "block";
-        const variants = JSON.parse(vData);
-        variants.forEach((v, idx) => {
-            const item = document.createElement("div");
-            item.className = `variant-item ${idx === 0 ? 'active' : ''}`;
-            item.onclick = function() {
+        vArea.style.display = "block";
+        JSON.parse(vData).forEach((v, i) => {
+            let div = document.createElement("div");
+            div.className = `variant-item ${i===0?'active':''}`;
+            div.onclick = function() {
                 document.getElementById("modal-img").src = v.img;
-                document.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.variant-item').forEach(e => e.classList.remove('active'));
                 this.classList.add('active');
             };
-            item.innerHTML = `<img src="${v.img}" alt="Variant">`;
-            vList.appendChild(item);
+            div.innerHTML = `<img src="${v.img}">`;
+            vList.appendChild(div);
         });
-    } else {
-        document.getElementById("variant-area").style.display = "none";
-    }
+    } else { vArea.style.display = "none"; }
     
-    // Manage Sizes
-    const sBox = document.getElementById("size-box");
-    sBox.innerHTML = "";
-    const sizes = sizeGroups[type] || sizeGroups.acc;
-    sizes.forEach(s => {
-        const opt = document.createElement("option");
-        opt.value = s;
-        opt.text = s;
-        sBox.add(opt);
-    });
-    
-    modal.style.display = "block";
-    document.documentElement.classList.add('modal-open');
+    let sBox = document.getElementById("size-box"); sBox.innerHTML = "";
+    (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; sBox.add(o); });
+    document.getElementById("pModal").style.display = "block";
 }
 
-// 5. CART OPERATIONS
 function addToCart() {
-    const selectedSize = document.getElementById("size-box").value;
-    cart.push({ 
-        name: activeProduct.name, 
-        price: activeProduct.price, 
-        size: selectedSize,
-        timestamp: new Date().getTime()
-    });
-    
-    updateCartUI();
-    closeModal();
-    
-    // Show Toast
-    const toast = document.getElementById("added-toast");
-    document.getElementById("toast-text").innerHTML = `✓ <strong>${activeProduct.name}</strong> added to bag`;
-    toast.classList.add("show");
-    setTimeout(() => toast.classList.remove("show"), 3000);
+    cart.push({ n: curP, s: document.getElementById("size-box").value, p: curPr });
+    updateCart(); closeModal();
+    let t = document.getElementById("added-toast"); t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3000);
 }
 
-function updateCartUI() {
+function updateCart() {
     document.getElementById("cart-count").innerText = cart.length;
     document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
-    saveCartData();
 }
 
 function showCart() {
-    let subtotal = 0;
-    const list = document.getElementById("cart-items-list");
-    list.innerHTML = "";
-    
-    cart.forEach((item, index) => {
-        subtotal += item.price;
-        const div = document.createElement("div");
-        div.className = "cart-item";
-        div.innerHTML = `
+    let tot = 0;
+    let list = document.getElementById("cart-items-list");
+    list.innerHTML = cart.map((item, i) => {
+        tot += item.p;
+        return `<div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #222;">
             <div>
-                <div style="font-weight:900; font-size:13px;">${item.name}</div>
-                <div style="font-size:11px; color:#888;">Size: ${item.size} | ${item.price.toLocaleString()} ETB</div>
+                <div style="font-weight:900; font-size:13px;">${item.n}</div>
+                <div style="font-size:11px; color:#888;">Size: ${item.s}</div>
             </div>
-            <button class="remove-btn" onclick="removeItem(${index})">REMOVE</button>
-        `;
-        list.appendChild(div);
-    });
-    
-    document.getElementById("cart-total").innerText = subtotal.toLocaleString();
+            <button onclick="rem(${i})" style="background:#333; color:#ff3b30; border:none; padding:8px 12px; border-radius:10px; font-weight:900; font-size:10px;">REMOVE</button>
+        </div>`;
+    }).join("");
+    document.getElementById("cart-total").innerText = tot.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
-    document.documentElement.classList.add('modal-open');
 }
 
-function removeItem(idx) {
-    cart.splice(idx, 1);
-    updateCartUI();
-    if(cart.length === 0) closeCart(); else showCart();
-}
+function rem(i) { cart.splice(i, 1); updateCart(); if(cart.length===0) closeCart(); else showCart(); }
 
-// 6. TELEGRAM INTEGRATION (SUBMIT ORDER)
 function submitOrder() {
     const name = document.getElementById('custName').value.trim();
     const phone = document.getElementById('custPhone').value.trim();
     const addr = document.getElementById('custAddress').value.trim();
+    if(!name || !phone || !addr) return alert("Please fill your contact details.");
     
-    if(!name || !phone || !addr) {
-        alert("Please provide your Name, Phone and Delivery Address to continue.");
-        return;
-    }
+    let bot = "8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc";
+    let cid = "5715582254";
+    let items = cart.map(i => `• ${i.n} (${i.s})`).join("\n");
+    let text = `🛍️ *NEW OUMRAN ORDER*\n\n👤 *User:* ${name}\n📞 *Phone:* ${phone}\n📍 *Loc:* ${addr}\n\n📦 *Items:*\n${items}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
     
-    const botToken = "8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc";
-    const chatId = "5715582254";
-    
-    let orderSummary = cart.map(i => `• ${i.name} (${i.size})`).join("\n");
-    let msg = `🛍️ *OUMRAN STORE NEW ORDER*\n\n`;
-    msg += `👤 *Customer:* ${name}\n`;
-    msg += `📞 *Phone:* ${phone}\n`;
-    msg += `📍 *Address:* ${addr}\n\n`;
-    msg += `📦 *Items:* \n${orderSummary}\n\n`;
-    msg += `💰 *Total Amount:* ${document.getElementById("cart-total").innerText} ETB`;
-    
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: "Markdown" })
-    }).then(res => {
-        if(res.ok) {
-            document.getElementById("cartModal").style.display = "none";
-            document.getElementById("successModal").style.display = "block";
-            cart = [];
-            updateCartUI();
-        }
-    }).catch(err => {
-        alert("Network error. Please try again or contact us on Telegram directly.");
+    fetch(`https://api.telegram.org/bot${bot}/sendMessage`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: cid, text: text, parse_mode: "Markdown" })
+    }).then(() => {
+        document.getElementById("cartModal").style.display = "none";
+        document.getElementById("successModal").style.display = "block";
+        cart = []; updateCart();
     });
 }
 
-// 7. UTILS
-function closeModal() { 
-    document.getElementById("pModal").style.display = "none"; 
-    document.documentElement.classList.remove('modal-open');
-}
-function closeCart() { 
-    document.getElementById("cartModal").style.display = "none"; 
-    document.documentElement.classList.remove('modal-open');
-}
-function saveCartData() { localStorage.setItem('oumer_cart_v2', JSON.stringify(cart)); }
-function loadCartData() {
-    const saved = localStorage.getItem('oumer_cart_v2');
-    if(saved) {
-        cart = JSON.parse(saved);
-        updateCartUI();
-    }
-}
-
-// Close modals when clicking outside
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) {
-        closeModal();
-        closeCart();
-    }
-}
+function closeModal() { document.getElementById("pModal").style.display = "none"; }
+function closeCart() { document.getElementById("cartModal").style.display = "none"; }
 </script>
 </body>
 </html>
