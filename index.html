@@ -122,23 +122,59 @@
             font-weight: 900; text-align: center; border-bottom: 1px solid #222;
         }
 
-        /* About Section */
-        #about-section {
-            display: none; padding: 30px 15px; max-width: 600px; margin: 0 auto;
-            animation: fadeInSplash 0.5s ease;
+        /* NEW ABOUT SECTION STYLES */
+        #about-page {
+            display: none;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInSplash 0.6s ease-out;
         }
-        .about-card {
-            background: rgba(26, 26, 26, 0.9); backdrop-filter: blur(15px);
-            border: 1px solid #333; border-radius: 20px; padding: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+
+        .about-hero {
+            text-align: center;
+            margin-bottom: 40px;
         }
-        .about-title {
-            font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold);
-            text-align: center; margin-bottom: 15px; font-style: italic;
+
+        .about-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-style: italic;
+            background: linear-gradient(90deg, #816604, #FFD700, #816604);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
         }
-        .about-content h4 { color: var(--gold); margin: 20px 0 8px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
-        .about-content p, .about-content li { color: #ccc; line-height: 1.6; font-size: 14px; margin-bottom: 10px; }
-        .about-content ul { padding-left: 18px; }
+
+        .about-card-premium {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .about-item h3 {
+            color: var(--gold);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .about-item p {
+            color: #ccc;
+            font-size: 13px;
+            line-height: 1.6;
+        }
 
         .search-container { padding: 15px; background: rgba(0,0,0,0.6); }
         #search-input { 
@@ -194,6 +230,7 @@
             .category-title { font-size: 28px !important; margin-bottom: 30px; }
             .brand-name { font-size: 24px !important; }
             .header-logo { height: 50px !important; }
+            .about-grid { grid-template-columns: 1fr 1fr 1fr; }
         }
     </style>
 </head>
@@ -317,31 +354,38 @@
         </main>
     </div>
 
-    <div id="about-section">
-        <div class="about-card">
-            <h2 class="about-title">OUMRAN STORE 📲</h2>
-            <div class="about-content">
-                <p style="text-align:center; font-weight: bold; color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px;">Premium Quality Vendor from China 🇨🇳✈️</p>
-                <p>Welcome to the official home of <strong>OUMRAN STORE</strong>. This is a high-end web catalog designed for an exclusive shopping experience in Addis Ababa.</p>
-                
-                <h4>🛍️ What’s Inside</h4>
-                <ul>
-                    <li><strong>Curated Collection:</strong> Exclusive selection of Graphic T-Shirts, Hoodies, Jackets, and Accessories.</li>
-                    <li><strong>Direct Ordering:</strong> Integrated shopping bag system for seamless orders.</li>
-                    <li><strong>Fast Browsing:</strong> Mobile-optimized interface for quick local access.</li>
-                </ul>
+    <div id="about-page">
+        <div class="about-hero">
+            <h1>OUR STORY</h1>
+            <p style="color: var(--gold); letter-spacing: 3px; font-size: 10px; font-weight: 900;">PREMIUM CURATION</p>
+        </div>
+        
+        <div class="about-card-premium">
+            <p style="text-align: center; font-size: 15px; line-height: 1.8; color: #fff; margin-bottom: 30px;">
+                OUMRAN STORE is the premier destination for high-street and luxury fashion in Addis Ababa. We source exclusively from premium vendors in China to bring the world's most sought-after silhouettes directly to your doorstep.
+            </p>
 
-                <h4>🚀 Availability</h4>
-                <ul>
-                    <li><strong>Location:</strong> Local delivery in Addis Ababa ✅</li>
-                    <li><strong>Shipping:</strong> Premium items imported from China 🇨🇳</li>
-                </ul>
-
-                <h4>📞 Contact & Orders</h4>
-                <p>For orders or inquiries, contact us directly on Telegram: <a href="https://t.me/OUMER_FETE" style="color: var(--tg); text-decoration: none; font-weight: bold;">@OUMER_FETE</a></p>
-                
-                <button class="btn" onclick="showStore()" style="background: var(--gold); color: black;">Start Shopping</button>
+            <div class="about-grid">
+                <div class="about-item">
+                    <h3>Exclusivity</h3>
+                    <p>Every piece in our catalog is hand-picked for its unique design and quality. We don't do basic.</p>
+                </div>
+                <div class="about-item">
+                    <h3>Quality</h3>
+                    <p>Imported directly, our items feature premium fabrics, perfect cuts, and durable finishes.</p>
+                </div>
+                <div class="about-item">
+                    <h3>Service</h3>
+                    <p>Fast local delivery within Addis Ababa with secure Telebirr payment options.</p>
+                </div>
             </div>
+
+            <div style="margin-top: 40px; border-top: 1px solid #333; padding-top: 20px; text-align: center;">
+                <h3 style="color: var(--gold); font-size: 12px; margin-bottom: 10px;">DIRECT SUPPORT</h3>
+                <a href="https://t.me/OUMER_FETE" style="color: #fff; text-decoration: none; font-size: 14px; font-weight: 900;">@OUMER_FETE</a>
+            </div>
+            
+            <button class="btn" onclick="showStore()" style="background: var(--gold); margin-top: 30px;">BACK TO SHOPPING</button>
         </div>
     </div>
 
@@ -408,15 +452,16 @@ window.addEventListener('load', () => {
     }, 3000); 
 });
 
+// NAVIGATION LOGIC
 function showAbout() {
     document.getElementById('store-view').style.display = 'none';
     document.getElementById('promo-bar').style.display = 'none';
-    document.getElementById('about-section').style.display = 'block';
+    document.getElementById('about-page').style.display = 'block';
     window.scrollTo(0,0);
 }
 
 function showStore() {
-    document.getElementById('about-section').style.display = 'none';
+    document.getElementById('about-page').style.display = 'none';
     document.getElementById('store-view').style.display = 'block';
     document.getElementById('promo-bar').style.display = 'block';
     window.scrollTo(0,0);
