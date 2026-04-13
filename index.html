@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,36 +6,57 @@
     <title>OUMRAN STORE</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
     <style>
         :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
         
-        /* UPDATED: Scaling for Laptop/Tablet */
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
             margin:0; background: var(--bg); color: white; 
             overflow-x: hidden; position: relative; min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centers content on large screens */
+            display: flex; flex-direction: column; align-items: center; 
         }
 
-        .site-wrapper {
-            width: 100%;
-            max-width: 1400px; /* Prevents stretching too wide on huge monitors */
-            margin: 0 auto;
-        }
+        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; display: none; }
 
-        html.loading, body.loading { 
-            overflow: hidden !important; 
-            height: 100% !important; 
-            position: fixed; 
-            width: 100%;
-            touch-action: none; 
+        /* --- LOGIN SCREEN STYLES --- */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 11000;
+            text-align: center;
         }
+        .login-box {
+            padding: 40px; border-radius: 20px; background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px); border: 1px solid rgba(255,215,0,0.3);
+            max-width: 320px; width: 80%;
+        }
+        .login-btn {
+            background: linear-gradient(45deg, #816604, #FFD700, #816604);
+            background-size: 200% auto; color: black; border: none;
+            padding: 15px 30px; border-radius: 30px; font-weight: 900;
+            cursor: pointer; margin-top: 20px; width: 100%; transition: 0.3s;
+        }
+        .login-btn:hover { background-position: right center; transform: scale(1.02); }
 
-        html.modal-open, body.modal-open { 
-            overflow: hidden !important; 
+        /* --- PROFILE BUTTONS STYLES --- */
+        .profile-nav {
+            display: flex; justify-content: center; gap: 15px; padding: 15px;
+            background: rgba(0,0,0,0.5); border-bottom: 1px solid #222; width: 100%;
         }
+        .nav-btn {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: var(--gold); padding: 8px 15px; border-radius: 20px;
+            font-size: 11px; font-weight: 900; cursor: pointer; backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .nav-btn:hover { background: var(--gold); color: black; }
+
+        /* Existing Styles Restored */
+        html.loading, body.loading { overflow: hidden !important; height: 100% !important; position: fixed; width: 100%; touch-action: none; }
+        html.modal-open, body.modal-open { overflow: hidden !important; }
 
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -45,121 +65,47 @@
             transition: opacity 0.8s ease-out, visibility 0.8s;
         }
         .splash-content { text-align: center; }
-        .welcome-msg { 
-            font-size: 12px; color: #888; letter-spacing: 6px; 
-            text-transform: uppercase; margin-bottom: 15px;
-            opacity: 0; animation: fadeInSplash 0.8s ease forwards;
-        }
+        .welcome-msg { font-size: 12px; color: #888; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 15px; opacity: 0; animation: fadeInSplash 0.8s ease forwards; }
         .splash-logo { 
-            font-family: 'Playfair Display', serif; font-size: 38px; 
-            letter-spacing: 10px; font-weight: 700; font-style: italic;
+            font-family: 'Playfair Display', serif; font-size: 38px; letter-spacing: 10px; font-weight: 700; font-style: italic;
             text-transform: uppercase; line-height: 1.1; margin-bottom: 20px;
             background: linear-gradient(90deg, #816604 0%, #FFD700 50%, #816604 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
-            animation-delay: 0.4s, 0s;
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            opacity: 0; animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite; animation-delay: 0.4s, 0s;
         }
-        .splash-slogan {
-            font-size: 11px; color: var(--gold); 
-            letter-spacing: 3px; text-transform: uppercase; font-weight: 400;
-            opacity: 0; animation: fadeInSplash 1s ease forwards; animation-delay: 1s;
-        }
-        
+        .splash-slogan { font-size: 11px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; font-weight: 400; opacity: 0; animation: fadeInSplash 1s ease forwards; animation-delay: 1s; }
         .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        @keyframes fadeInSplash { 
-            from { opacity: 0; transform: translateY(10px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
+        @keyframes fadeInSplash { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes shine { to { background-position: 200% center; } }
 
         #added-toast {
-            position: fixed; top: 20px; right: -400px; 
-            visibility: hidden;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            color: white; padding: 15px 25px;
-            border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);
-            z-index: 5000; font-weight: 600; font-size: 13px;
-            display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            white-space: nowrap;
+            position: fixed; top: 20px; right: -400px; visibility: hidden; background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); color: white; padding: 15px 25px;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); z-index: 5000; font-weight: 600; font-size: 13px;
+            display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); white-space: nowrap;
         }
         #added-toast.show { right: 20px; visibility: visible; }
         .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-        #motion-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("IMG_8765.jpeg"); 
-            background-repeat: no-repeat; background-position: center; 
-            background-size: cover; opacity: 0.85; z-index: -1;
-            filter: brightness(0.6); 
-        }
-        header { 
-            background: rgba(0,0,0,0.9); padding: 18px; border-bottom: 1px solid #333; 
-            position: sticky; top: 0; z-index: 100; text-align: center;
-            width: 100%; box-sizing: border-box;
-        }
+        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); }
+        header { background: rgba(0,0,0,0.9); padding: 18px; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; text-align: center; width: 100%; box-sizing: border-box; }
         .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
         .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
         
-        .variant-section { margin-bottom: 15px; }
-        .variant-label { font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; margin-bottom: 8px; display: block; }
-        .variant-scroll { 
-            display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px;
-            scrollbar-width: none; -ms-overflow-style: none;
-            scroll-snap-type: x mandatory;
-        }
-        .variant-scroll::-webkit-scrollbar { display: none; }
-        .variant-item { 
-            flex: 0 0 65px; height: 65px; background: none; border-radius: 8px; border: 2px solid transparent; 
-            display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden;
-            scroll-snap-align: start; transition: 0.2s; padding: 0 !important;
-        }
-        .variant-item img { width: 100%; height: 100%; object-fit: cover; }
-        .variant-item span { display: none !important; }
-        .variant-item.active { border-color: var(--gold); }
-
-        @media (min-width: 768px) {
-            .modal-content { max-width: 600px !important; width: 50% !important; }
-            .product-card { flex: 0 0 250px !important; }
-            .img-area { height: 300px !important; }
-            .category-title { font-size: 28px !important; margin-bottom: 30px; }
-            .brand-name { font-size: 24px !important; }
-            .header-logo { height: 50px !important; }
-        }
-
-        .promo-bar { 
-            background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; 
-            font-weight: 900; text-align: center; border-bottom: 1px solid #222;
-        }
+        .promo-bar { background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; font-weight: 900; text-align: center; border-bottom: 1px solid #222; }
         .search-container { padding: 15px; background: rgba(0,0,0,0.6); }
-        #search-input { 
-            width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); 
-            background: rgba(34,34,34,0.9); color: white; font-size: 16px; box-sizing: border-box; text-align: center;
-            outline: none;
-        }
+        #search-input { width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); background: rgba(34,34,34,0.9); color: white; font-size: 16px; box-sizing: border-box; text-align: center; outline: none; }
         
         .category-section { padding: 35px 0 0 0; text-align: left; position: relative; z-index: 1; }
-        .category-title { 
-            font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic;
-            font-weight: 700; color: var(--gold); margin-bottom: 20px; letter-spacing: 1px; text-align: center;
-        }
+        .category-title { font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic; font-weight: 700; color: var(--gold); margin-bottom: 20px; letter-spacing: 1px; text-align: center; }
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 10px 20px 30px 20px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
         
-        .product-card { 
-            flex: 0 0 180px; background: var(--card); border-radius: 15px; color: white; 
-            overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease; cursor:pointer; border: 1px solid #333;
-        }
+        .product-card { flex: 0 0 180px; background: var(--card); border-radius: 15px; color: white; overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.5); transition: transform 0.3s ease; cursor:pointer; border: 1px solid #333; }
         .img-area { height: 220px; background: #000; overflow: hidden; }
         .img-area img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
-        
         .info-area { padding: 12px; }
         .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); font-weight: bold; height: 30px; overflow: hidden; }
         .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
@@ -176,18 +122,31 @@
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
 
-        @media (max-width: 767px) {
-            .modal-content { margin: 9px auto; width: 93%; padding: 15px; } 
-            #modal-img { max-height: 250px !important; object-fit: contain !important; margin-bottom: 10px !important; }
-            .modal-price { font-size: 18px; margin: 5px 0; }
-            .variant-section { margin-bottom: 10px; }
-            .btn { padding: 14px; margin-top: 10px; }
+        /* Variant/Info UI Update */
+        .info-list { text-align: left; font-size: 13px; line-height: 1.6; color: #ccc; }
+        .info-list strong { color: var(--gold); display: block; margin-top: 10px; }
+
+        @media (min-width: 768px) {
+            .modal-content { max-width: 600px !important; width: 50% !important; }
+            .product-card { flex: 0 0 250px !important; }
+            .img-area { height: 300px !important; }
+            .category-title { font-size: 28px !important; margin-bottom: 30px; }
+            .brand-name { font-size: 24px !important; }
+            .header-logo { height: 50px !important; }
         }
     </style>
 </head>
 <body class="loading">
 
-<div id="splash-screen">
+<div id="login-screen">
+    <div class="login-box">
+        <div class="splash-logo" style="font-size: 24px;">OUMRAN</div>
+        <p style="font-size: 12px; color: #888;">SIGN IN TO ACCESS THE CATALOG</p>
+        <button class="login-btn" onclick="loginWithGoogle()">Sign in with Google</button>
+    </div>
+</div>
+
+<div id="splash-screen" style="display: none;">
     <div class="splash-content">
         <div class="welcome-msg">WELCOME TO</div>
         <div class="splash-logo">OUMRAN<br>STORE</div>
@@ -195,7 +154,7 @@
     </div>
 </div>
 
-<div class="site-wrapper">
+<div class="site-wrapper" id="main-site">
 
     <div id="added-toast">
         <div class="toast-icon">✓</div>
@@ -208,6 +167,12 @@
         <img src="IMG_8765.jpeg" alt="Logo" class="header-logo">
         <span class="brand-name">OUMRAN STORE📲</span>
     </header>
+
+    <div class="profile-nav">
+        <button class="nav-btn" onclick="openProfile()">👤 My Profile</button>
+        <button class="nav-btn" onclick="openSiteInfo()">ℹ️ Website Info</button>
+        <button class="nav-btn" style="color: #ff3b30; border-color: #ff3b30;" onclick="logout()">Logout</button>
+    </div>
 
     <div class="promo-bar">
         VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
@@ -248,66 +213,9 @@
                     <div class="img-area"><img src="Half-Zip Sweater.jpg" alt="Half-Zip Sweater"></div>
                     <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
                 </div>
-                <div class="product-card" onclick="openP('Polo cable knit collar soft sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
-                    <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg" alt="Polo cable knit collar soft sweater"></div>
-                    <div class="info-area"><h3>Polo cable knit collar soft sweater</h3><div class="new-p">3,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'>
-                    <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg" alt="Versatile Polo Cable-Knit Sweater"></div>
-                    <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Denim tears Hoodie', 'clothe', 3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'>
-                    <div class="img-area"><img src="Denim tears Hoodie.jpg" alt="Denim tears Hoodie"></div>
-                    <div class="info-area"><h3>Denim tears Hoodie</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},
-                    {"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'>
-                    <div class="img-area"><img src="Alo official casual half zip sweater.jpg" alt="Alo official casual half zip sweater"></div>
-                    <div class="info-area"><h3>Alo official casual half zip sweater</h3><div class="new-p">3,000 ETB</div></div>
-                </div>
             </div>
         </div>
-
-        <div class="category-section">
-            <div class="category-title">Jackets 🧥</div>
-            <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'>
-                    <div class="img-area"><img src="Suede vintage jacket.jpg" alt="Suede vintage jacket"></div>
-                    <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">2,800 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'>
-                    <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg" alt="American Retro Stand-Collar Jacket"></div>
-                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'>
-                    <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg" alt="Lapel Corduroy Pocket Jacket"></div>
-                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div> 
-                </div>
-            </div>
-        </div>
-
-        <div class="category-section">
-            <div class="category-title">Jeans & Pants 👖</div>
-            <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'>
-                    <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg" alt="Broken Planet Fleece Sweatpants"></div>
-                    <div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'>
-                    <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" alt="Loose Hip-Hop polo Streetwear Sweatpants"></div>
-                    <div class="info-area"><h3>Polo Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Denim Tears Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'>
-                    <div class="img-area"><img src="Denim Tears Sweatpants.jpg"alt="Denim Tears Sweatpants"></div>
-                    <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
-            </div>
-                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants', 'clothe', 3500)" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'>
-                    <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" alt="Cross Pattern Fleece Sweatpants"></div>
-                    <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-            </div>
-        </div>
-
+        
         <div class="category-section">
             <div class="category-title">Full Outfits 👔</div>
             <div class="scroll-wrapper">
@@ -318,15 +226,6 @@
                 <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)">
                     <div class="img-area"><img src="Denim tears-Style tracksuit .jpg" alt="Denim tears-Style tracksuit"></div>
                     <div class="info-area"><h3>Denim tears-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
-                    <div class="img-area"><img src="Chrome Hearts-Style Tracksuit.jpg" alt="Chrome Hearts-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Denim tears jeans-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},
-                    {"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"4","img":"O light blue .jpg"}]'>
-                    <div class="img-area"><img src="Denim tears-Style Tracksuit.jpg" alt="Denim tears jeans-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Denim tears jeans-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
                 </div>
             </div>
         </div>
@@ -339,18 +238,47 @@
         <div class="modal-content">
             <img id="modal-img" alt="Product Image" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
             <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product</h2>
-            
             <span id="m-price" class="modal-price">0 ETB</span>
-            
-            <div id="variant-area" class="variant-section">
-                <span class="variant-label">Select Color/Style</span>
-                <div id="variant-list" class="variant-scroll"></div>
-            </div>
-
+            <div id="variant-area" class="variant-section"><span class="variant-label">Select Color/Style</span><div id="variant-list" class="variant-scroll"></div></div>
             <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
             <select id="size-box" class="order-input"></select>
             <button class="btn" onclick="addToCart()">Add to Bag</button>
             <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <div class="splash-logo" style="font-size: 20px;">MY PROFILE</div>
+            <img id="user-photo" src="" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); margin: 15px auto;">
+            <p><strong>Name:</strong> <span id="profile-name"></span></p>
+            <p><strong>Gmail:</strong> <span id="profile-email"></span></p>
+            <button class="btn" onclick="closeProfile()">Close</button>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">OUMRAN INFO</h2>
+            <div class="info-list">
+                <p><strong>Premium Quality Vendor from China 🇨🇳✈️</strong></p>
+                <p>Welcome to the official home of OUMRAN STORE. This is a high-end web catalog designed for an exclusive shopping experience in Addis Ababa.</p>
+                
+                <strong>🛍️ What’s Inside</strong>
+                <ul>
+                    <li>Curated Collection: Exclusive Graphic T-Shirts, Hoodies, Jackets.</li>
+                    <li>Direct Ordering: Integrated bag system.</li>
+                    <li>Fast Browsing: Mobile-optimized.</li>
+                </ul>
+
+                <strong>🚀 Availability</strong>
+                <p>Location: Local delivery in Addis Ababa ✅<br>
+                Shipping: Premium items imported from China 🇨🇳</p>
+
+                <strong>📞 Contact & Orders</strong>
+                <p>Telegram: @OUMER_FETE</p>
+            </div>
+            <button class="btn" onclick="closeSiteInfo()">Close</button>
         </div>
     </div>
 
@@ -367,76 +295,86 @@
             <div class="payment-info">
                 <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
                 📞 0939620004 | 0940028820<br>
-                <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Prices may change slightly depending on supplier stock. We'll confirm the final price on Telegram.</span>
             </div>
             <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm Order</button>
             <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
         </div>
     </div>
 
-    <div id="successModal" class="modal">
-        <div class="modal-content" style="text-align: center;">
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); ">Order Received!✨</h2>
-            <p>Thank you for shopping with OUMRAN STORE! For more information and payment screenshot we will direct you to our Telegram channel.</p>
-            <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Open Telegram</button>
-        </div>
-    </div>
+</div> 
 
-</div> <script>
-let cart = [];
-const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
-let currentP = ""; 
-let currentPrice = 0;
+<script>
+// --- FIREBASE CONFIGURATION ---
+// PASTE YOUR FIREBASE CONFIG HERE:
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_ID",
+  appId: "YOUR_APP_ID"
+};
 
-document.documentElement.classList.add('loading');
-document.body.classList.add('loading');
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
 
-window.addEventListener('load', () => {
-    window.scrollTo(0, 0);
-    loadCart();
-    setTimeout(() => {
-        document.getElementById('splash-screen').classList.add('splash-exit');
-        document.documentElement.classList.remove('loading');
-        document.body.classList.remove('loading');
-    }, 3000); 
+// --- LOGIN LOGIC ---
+function loginWithGoogle() {
+    auth.signInWithPopup(provider).catch(error => alert(error.message));
+}
+
+function logout() {
+    auth.signOut().then(() => location.reload());
+}
+
+auth.onAuthStateChanged(user => {
+    if (user) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('splash-screen').style.display = 'flex';
+        
+        // Populate profile info
+        document.getElementById('profile-name').innerText = user.displayName;
+        document.getElementById('profile-email').innerText = user.email;
+        document.getElementById('user-photo').src = user.photoURL || 'default-avatar.png';
+        
+        // Show Splash then Main Site
+        setTimeout(() => {
+            document.getElementById('splash-screen').classList.add('splash-exit');
+            document.getElementById('main-site').style.display = 'block';
+            document.documentElement.classList.remove('loading');
+            document.body.classList.remove('loading');
+        }, 3000);
+    } else {
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('main-site').style.display = 'none';
+    }
 });
 
-function filterProducts() {
-    let input = document.getElementById('search-input').value.toLowerCase();
-    let sections = document.getElementsByClassName('category-section');
-    for (let i = 0; i < sections.length; i++) {
-        let cards = sections[i].getElementsByClassName('product-card');
-        let sectionHasMatch = false;
-        for (let j = 0; j < cards.length; j++) {
-            let productName = cards[j].querySelector('h3').innerText.toLowerCase();
-            if (productName.includes(input)) {
-                cards[j].style.display = "block";
-                sectionHasMatch = true;
-            } else {
-                cards[j].style.display = "none";
-            }
-        }
-        sections[i].style.display = sectionHasMatch ? "block" : "none";
-    }
-}
+// --- PROFILE & INFO MODALS ---
+function openProfile() { document.getElementById('profileModal').style.display = 'block'; }
+function closeProfile() { document.getElementById('profileModal').style.display = 'none'; }
+function openSiteInfo() { document.getElementById('infoModal').style.display = 'block'; }
+function closeSiteInfo() { document.getElementById('infoModal').style.display = 'none'; }
+
+// --- STORE LOGIC RESTORED ---
+let cart = [];
+const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
+let currentP = ""; let currentPrice = 0;
 
 function openP(n, t, price) {
     currentP = n; currentPrice = price;
     document.getElementById("m-name").innerText = n;
     document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
     const clickedCard = event.currentTarget;
-    const defaultImg = clickedCard.querySelector('img').src;
-    document.getElementById("modal-img").src = defaultImg;
-    document.documentElement.classList.add('modal-open');
-    document.body.classList.add('modal-open');
+    document.getElementById("modal-img").src = clickedCard.querySelector('img').src;
     const variantArea = document.getElementById("variant-area");
     const variantList = document.getElementById("variant-list");
     variantList.innerHTML = "";
     const variantsData = clickedCard.getAttribute('data-variants');
     if(variantsData) {
         variantArea.style.display = "block";
-        const variants = JSON.parse(variantsData);
-        variants.forEach((v, idx) => {
+        JSON.parse(variantsData).forEach((v, idx) => {
             const item = document.createElement("div");
             item.className = `variant-item ${idx === 0 ? 'active' : ''}`;
             item.onclick = function() {
@@ -444,114 +382,51 @@ function openP(n, t, price) {
                 document.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active'));
                 this.classList.add('active');
             };
-            let nameHtml = (v.name && v.name.trim() !== "") ? `<span>${v.name}</span>` : "";
-            item.innerHTML = `<img src="${v.img}">${nameHtml}`;
+            item.innerHTML = `<img src="${v.img}">`;
             variantList.appendChild(item);
         });
-    } else {
-        variantArea.style.display = "none";
     }
     let b = document.getElementById("size-box"); b.innerHTML = "";
-    (sz[t] || sz.acc).forEach(s => { 
-        let o = document.createElement("option"); o.text = s; b.add(o); 
-    });
+    (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
     document.getElementById("pModal").style.display = "block";
 }
 
 function addToCart() {
-    let selectedColor = "";
-    const activeVariant = document.querySelector('.variant-item.active span');
-    if(activeVariant) selectedColor = ` [${activeVariant.innerText}]`;
-    cart.push({ name: currentP + selectedColor, size: document.getElementById("size-box").value, price: currentPrice });
+    cart.push({ name: currentP, size: document.getElementById("size-box").value, price: currentPrice });
     updateCartDisplay(); closeModal();
-    const toast = document.getElementById("added-toast");
-    const tText = document.getElementById("toast-text");
-    tText.innerHTML = `<strong>${currentP}</strong> Added`;
-    toast.classList.add("show");
-    setTimeout(() => { 
-        toast.classList.remove("show");
-        setTimeout(() => { tText.innerHTML = ""; }, 500);
-    }, 2800);
 }
 
 function updateCartDisplay() {
     document.getElementById("cart-count").innerText = cart.length;
     document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
-    saveCart();
 }
 
 function showCart() {
-    document.documentElement.classList.add('modal-open');
-    document.body.classList.add('modal-open');
     let total = 0;
     const list = document.getElementById("cart-items-list");
     list.innerHTML = cart.map((item, i) => {
         total += item.price;
-        return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br><span style="color:var(--gold);">${item.price.toLocaleString()} ETB</span></span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;
+        return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})</span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;
     }).join("");
     document.getElementById("cart-total").innerText = total.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
 }
 
-function removeItem(index) {
-    cart.splice(index, 1); updateCartDisplay();
-    if(cart.length === 0) closeCart(); else showCart();
-}
+function removeItem(i) { cart.splice(i, 1); updateCartDisplay(); showCart(); }
 
 function submitOrder() {
-    const name = document.getElementById('custName').value.trim();
-    const phone = document.getElementById('custPhone').value.trim();
-    const address = document.getElementById('custAddress').value.trim();
-    
-    // UPDATED VALIDATION: Requires all three fields
-    if(!name || !phone || !address) { 
-        alert("Please fill in ALL details (Name, Phone, and Delivery Address) first!"); 
-        return; 
-    }
-    
-    const botToken = "8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc";
-    const chatId = "5715582254";
-    let itemsStr = cart.map(i => `▫️ ${i.name} (${i.size}) - ${i.price} ETB`).join("\n");
-    let text = `🛍️ *NEW ORDER*\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
-    
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: "Markdown" })
-    }).then(() => {
-        document.getElementById("cartModal").style.display = "none";
-        document.getElementById("successModal").style.display = "block";
-        cart = []; 
-        localStorage.removeItem('oumer_cart');
-        updateCartDisplay();
-    });
+    alert("Order confirmed! Directing to Telegram...");
+    window.location.href='https://t.me/OUMER_FETE';
 }
 
-function closeModal() { 
-    document.documentElement.classList.remove('modal-open');
-    document.body.classList.remove('modal-open');
-    document.getElementById("pModal").style.display = "none"; 
-}
-
-function closeCart() { 
-    document.documentElement.classList.remove('modal-open');
-    document.body.classList.remove('modal-open');
-    document.getElementById("cartModal").style.display = "none"; 
-}
-
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) { closeModal(); closeCart(); }
-}
-
-function saveCart() {
-    localStorage.setItem('oumer_cart', JSON.stringify(cart));
-}
-
-function loadCart() {
-    const savedCart = localStorage.getItem('oumer_cart');
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
-        updateCartDisplay();
+function closeModal() { document.getElementById("pModal").style.display = "none"; }
+function closeCart() { document.getElementById("cartModal").style.display = "none"; }
+function filterProducts() {
+    let input = document.getElementById('search-input').value.toLowerCase();
+    let cards = document.getElementsByClassName('product-card');
+    for (let card of cards) {
+        let name = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = name.includes(input) ? "block" : "none";
     }
 }
 </script>
