@@ -583,7 +583,7 @@ function submitOrder() {
     
     const botToken = "8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc";
     const chatId = "5715582254";
-    let itemsStr = cart.map(i => `▫️ ${i.name} (${i.size}) - ${i.price} ETB`).join("\n");
+    let itemsStr = cart.map(i => `▫️ ${i.variant} (${i.size}) - ${i.price} ETB`).join("\n");
     let text = `🛍️ *NEW ORDER*\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
     
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
